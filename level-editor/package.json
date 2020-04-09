@@ -24,6 +24,11 @@
     "typescript": "~3.7.2",
     "uuid": "^7.0.3"
   },
+  "build": {
+    "directories": {
+      "output": "release/"
+    }
+  },
   "main": "./electron-starter.js",
   "scripts": {
     "start": "cross-env BROWSER=none nf start -p 3000",

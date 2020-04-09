@@ -12,8 +12,8 @@ let levelInit = {
     gravity: -9.8,
     bounds: [0.0,0.0,2.0,3.0],
     scale: [2.0,3.0],
-    backgroundPres: 'present',
-    backgroundPast: 'past'
+    backgroundPres: 'present_room2.png',
+    backgroundPast: 'past_room2.png'
   },
   platforms: [],
   walls: [],
@@ -55,8 +55,8 @@ const containerStyling = {
 }
 
 const appStyling = {
-  minHeight: '10px',
-  height: '10px',
+  minHeight: '20px',
+  height: '25px',
   width: '100%'
 }
 
@@ -124,10 +124,10 @@ const App : React.FC = ({}) => {
   return (
     <div className="App" >
       <header className="App-header" style = {appStyling} >
-        <button onClick= {() => exportToJson(JSON.parse(JSON.stringify(tester)))}>Download</button>
+        <button onClick= {() => exportToJson(JSON.parse(JSON.stringify(tester)))} style = {{height:'20px', fontSize:'7pt'}}>Download</button>
       </header>
       <div style = {containerStyling}>
-        <LevelWindow debug = {JSON.stringify(JSON.parse(JSON.stringify(tester)))}></LevelWindow>
+        <LevelWindow></LevelWindow>
         <ItemDashboard key = {JSON.stringify(gameObjects)} gameObjectsInput={gameObjects} update={updateState} selected={selectComponent}>
           </ItemDashboard>
       </div>

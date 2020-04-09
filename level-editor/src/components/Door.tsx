@@ -41,51 +41,51 @@ const Door : React.FC<Props> = ({info, update,selected}) => {
           </InputGroupAddon>
           {/* TODO: change bounds input */}
           <Input onBlur={e =>update({ pos:pos, size:[+e.target.value,size[1]], bodytype:bodytype, density:density, 
-            friction:friction, restitution:restitution, texturePres:texturePres, texturePast})} placeholder='0' />
+            friction:friction, restitution:restitution, texturePres:texturePres, texturePast})} defaultValue={size[0]} />
           <Input onBlur={e =>update({ pos:pos, size:[size[0], +e.target.value], bodytype:bodytype, density:density, 
-            friction:friction, restitution:restitution, texturePres:texturePres, texturePast})} placeholder='0' />
+            friction:friction, restitution:restitution, texturePres:texturePres, texturePast})} defaultValue={size[1]} />
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Body Type</InputGroupText>
           </InputGroupAddon>
           <Input onBlur={e =>update({ pos:pos, size:size, bodytype:e.target.value, density:density, 
-            friction:friction, restitution:restitution, texturePres:texturePres, texturePast:texturePast})} placeholder='static or dynamic' />
+            friction:friction, restitution:restitution, texturePres:texturePres, texturePast:texturePast})} defaultValue={bodytype} />
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Density</InputGroupText>
           </InputGroupAddon>
           <Input onBlur={e =>{console.log(e.target.value); update({ pos:pos, size:size, bodytype:bodytype, density:+e.target.value, 
-            friction:friction, restitution:restitution, texturePres:texturePres, texturePast:texturePast})}} placeholder='0' />
+            friction:friction, restitution:restitution, texturePres:texturePres, texturePast:texturePast})}} defaultValue={density} />
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Friction</InputGroupText>
           </InputGroupAddon>
           <Input onBlur={e =>update({ pos:pos, size:size, bodytype:bodytype, density:density, 
-            friction:+e.target.value, restitution:restitution, texturePres:texturePres, texturePast:texturePast})} placeholder='0' />
+            friction:+e.target.value, restitution:restitution, texturePres:texturePres, texturePast:texturePast})} defaultValue={friction} />
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Restitution</InputGroupText>
           </InputGroupAddon>
           <Input onBlur={e =>update({ pos:pos, size:size, bodytype:bodytype, density:density, 
-            friction:friction, restitution:+e.target.value, texturePres:texturePres, texturePast:texturePast})} placeholder='0' />
+            friction:friction, restitution:+e.target.value, texturePres:texturePres, texturePast:texturePast})} defaultValue={restitution} />
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Present Texture</InputGroupText>
           </InputGroupAddon>
           <Input onBlur={e =>update({ pos:pos, size:size, bodytype:bodytype, density:density, 
-            friction:friction, restitution:restitution, texturePres:e.target.value, texturePast:texturePast})} placeholder='0' />
+            friction:friction, restitution:restitution, texturePres:e.target.value, texturePast:texturePast})} defaultValue={texturePres} />
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Past Texture</InputGroupText>
           </InputGroupAddon>
           <Input onBlur={e =>update({ pos:pos, size:size, bodytype:bodytype, density:density, 
-            friction:friction, restitution:restitution, texturePres:texturePres, texturePast:e.target.value})} placeholder='0' />
+            friction:friction, restitution:restitution, texturePres:texturePres, texturePast:e.target.value})} defaultValue={texturePast} />
         </InputGroup>
       </Collapse>
     </div>
