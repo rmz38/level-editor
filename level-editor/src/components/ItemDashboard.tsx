@@ -33,6 +33,7 @@ const windowStyling : CSS.Properties= {
 const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) => {
   const [gameObjects, setGameObjects] = useState<any>(JSON.parse(JSON.stringify(gameObjectsInput)));
   
+  //updates in App the state assuming world was changed
   let updateWorldState = (newWorld:any) => {
     let {platforms, walls, avatar, door, turrets} = gameObjects
     let newGameObjects = {
@@ -46,6 +47,7 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
     update(newGameObjects);
     setGameObjects(newGameObjects)
   }
+  //updates Apps state assuming door was changed
   let updateDoorState = (newDoor:any) => {
     let {world, platforms, walls, avatar, turrets} = gameObjects
     let newGameObjects = {
@@ -59,16 +61,13 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
     update(newGameObjects)
     setGameObjects(newGameObjects)
   }
+
+  //list of components initially, will always have a door, world, and avatar, avatar not implemented yet
   const [componentList, setComponentList] = useState<any>([
     <World key = {JSON.stringify(gameObjects)} info = {gameObjects.world} update = {updateWorldState} selected = {selected}></World>,
     <Door key = {JSON.stringify(gameObjects)} info = {gameObjects.door} update = {updateDoorState} selected = {selected}></Door>]
     )
-  // gravity: -9.8,
-  //   bounds: [0.0,0.0,2.0,3.0],
-  //   scale: [2.0,3.0],
-  //   backgroundPres: 'present',
-  //   backgroundPast: 'past'
-  // const{ gravity, bounds, scale, backgroundPres, backgroundPast} = gameObjects.world
+  
   return (
     <div className="ItemDashboard" style = {windowStyling}>
         {componentList}

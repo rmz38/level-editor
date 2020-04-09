@@ -16,9 +16,11 @@ interface Props {
 
 
 const World : React.FC<Props> = ({info, update,selected}) => {
+
+  //update is a prop for updating in App the state, passes through ItemDashboard first
   const [isOpen, setIsOpen] = useState(false);
   const {gravity, bounds, scale, backgroundPres, backgroundPast} = info
-  const toggle = () => {
+  const toggle = () => { //for toggling hiding the menu
     setIsOpen(!isOpen);
     selected('world', isOpen);
   }
@@ -68,9 +70,3 @@ const World : React.FC<Props> = ({info, update,selected}) => {
 }
 
 export default World;
-
-// gravity: -9.8,
-//     bounds: [0.0,0.0,2.0,3.0],
-//     scale: [2.0,3.0],
-//     backgroundPres: 'present',
-//     backgroundPast: 'past'

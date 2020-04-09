@@ -7,6 +7,7 @@ import Turret from './components/Turret';
 import Door from './components/Door';
 // import uuid from 'uuid';
 
+//initial json
 let levelInit = {
   world: {
     gravity: -9.8,
@@ -48,19 +49,21 @@ let levelInit = {
   turrets: []
 };
 
+//styling for container holding Level Window and ItemDashboard
 const containerStyling = {
   height: '600px',
   width: '100%',
   display: 'flex'
 }
 
+//styling for this
 const appStyling = {
   minHeight: '20px',
   height: '25px',
   width: '100%'
 }
 
-
+//downloads state info as a json called export
 function exportToJson(objectData: JSON) {
   let filename = "export.json";
   let contentType = "application/json;charset=utf-8;";
@@ -77,9 +80,7 @@ function exportToJson(objectData: JSON) {
     document.body.removeChild(a);
   }
 }
-interface Props {
-  gameObjectsProps: Array<any>
-}
+
 
 const App : React.FC = ({}) => {
   
@@ -89,12 +90,13 @@ const App : React.FC = ({}) => {
   const [avatar, setAvatar] = useState(levelInit.avatar);
   const [door, setDoor] = useState(levelInit.door);
   const [turrets, setTurrets] = useState(levelInit.turrets);
-  const [gameObjects, setGameObjects] = useState<any>(levelInit);
-  const [objectPostitions, setOp] = useState(new Object())
+  const [gameObjects, setGameObjects] = useState<any>(levelInit); //represents json, init with levelinit
+  const [objectPostitions, setOp] = useState(new Object()) // not used yet
 
 
-  let editorObjects = useState([{id:'world', selected: false}]);
-  let updateState = (newState:any) => {
+  let editorObjects = useState([{id:'world', selected: false}]); //not used yet
+
+  let updateState = (newState:any) => { // updates state
     let {world, platforms, walls, avatar, door, turrets} = newState;
     console.log(newState)
     setWorld(newState.world);
@@ -105,7 +107,7 @@ const App : React.FC = ({}) => {
     setTurrets(newState.turrets);
     setGameObjects(newState);
   }
-  let selectComponent = (id:string, open:boolean) => {
+  let selectComponent = (id:string, open:boolean) => { //not used for anything yet
     editorObjects.map(
       (item:any) => {
         if(item.id == id){
@@ -115,6 +117,7 @@ const App : React.FC = ({}) => {
         }
     })
   }
+  //used for debugging and formatting json during download
   let tester = {
     door,
     world,
