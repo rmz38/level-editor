@@ -42,8 +42,8 @@ let levelInit = {
     density: 0.0,
     friction: 0.0,
     restitution: 0.0,
-    texturePres: 'goaldoorPres',
-    texturePast: 'goaldoorPast'
+    texturePres: 'goaldoor.png',
+    texturePast: 'goaldoorPast.png'
   },
   turrets: []
 };
@@ -90,10 +90,13 @@ const App : React.FC = ({}) => {
   const [door, setDoor] = useState(levelInit.door);
   const [turrets, setTurrets] = useState(levelInit.turrets);
   const [gameObjects, setGameObjects] = useState<any>(levelInit);
+  const [objectPostitions, setOp] = useState(new Object())
+
 
   let editorObjects = useState([{id:'world', selected: false}]);
   let updateState = (newState:any) => {
     let {world, platforms, walls, avatar, door, turrets} = newState;
+    console.log(newState)
     setWorld(newState.world);
     setPlatforms(newState.platforms);
     setWalls(newState.walls);
@@ -127,7 +130,8 @@ const App : React.FC = ({}) => {
         <button onClick= {() => exportToJson(JSON.parse(JSON.stringify(tester)))} style = {{height:'20px', fontSize:'7pt'}}>Download</button>
       </header>
       <div style = {containerStyling}>
-        <LevelWindow></LevelWindow>
+        <LevelWindow key = {JSON.stringify(gameObjects)} backgroundPastPath = {world.backgroundPast} backgroundPresPath = {world.backgroundPres} 
+          gameObjectState = {gameObjects} updateState = {updateState}></LevelWindow>
         <ItemDashboard key = {JSON.stringify(gameObjects)} gameObjectsInput={gameObjects} update={updateState} selected={selectComponent}>
           </ItemDashboard>
       </div>

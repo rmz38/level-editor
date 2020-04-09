@@ -5,11 +5,16 @@ import CSS from 'csstype';
 import Draggable from 'react-draggable'; // The default
 import {DraggableCore} from 'react-draggable'; // <DraggableCore>
 import { url } from 'inspector';
+import LevelWindowItem from './LevelWindowItem';
+import Door from './Door';
 
 // import avatar from "/assets/avatar.png"
-// interface Props {
-//     debug: string;
-// }
+interface Props {
+    backgroundPastPath: string
+    backgroundPresPath: string
+    gameObjectState: any
+    updateState: (s:any) => any
+}
 
 // 'url("/assets/past_room2.png")'
 const windowStyling : CSS.Properties= {
@@ -20,15 +25,19 @@ const windowStyling : CSS.Properties= {
     position: 'relative'
 }
 
-const LevelWindow : React.FC = () => {
-  
+const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, gameObjectState,updateState}) => {
+  const[gameObjects, setGameObjects] = useState(gameObjectState)
+  let updatePos = (p:Array<number>, id:string) =>{
+    if(id == 'door'){
+      gameObjectState.door.pos = p
+      console.log("levelwindow",gameObjectState)
+      updateState(gameObjectState)
+    }
+  }
   return (
     <div className="LevelWindow" style = {windowStyling}>
-      <img style = {{position:'absolute', top:'0px', left:'0px', height:'600px'}}src = "/assets/past_room2.png"></img>
-        LevelWindow
-        <Draggable onDrag = {(e,data) => console.log(data.x + " " + data.y)}>
-          <div style = {{position:'absolute', bottom:'0px', left:'0px'}}><img src = "/assets/goaldoor.png"></img></div>
-        </Draggable>
+      <img style = {{position:'absolute', top:'0px', left:'0px', height:'600px', zIndex:-1}}src = {"/assets/"+ backgroundPastPath}></img>
+      <LevelWindowItem key = {JSON.stringify(gameObjectState)} texturePres = {gameObjectState.door.texturePres} idInput = "door" posInput = {gameObjectState.door.pos} updatePosInput = {updatePos}></LevelWindowItem>
     </div>
   );
 }
