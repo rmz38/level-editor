@@ -28,11 +28,26 @@ const windowStyling : CSS.Properties= {
 const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, gameObjectState,updateState}) => {
   const[gameObjects, setGameObjects] = useState(gameObjectState)
   let updatePos = (p:Array<number>, id:string) =>{
-    if(id == 'door'){
-      gameObjectState.door.pos = p
-      console.log("levelwindow",gameObjectState)
-      updateState(gameObjectState)
-    }
+  
+      let newGS = {
+        world:gameObjectState.world,
+        platforms:[],
+        walls:[],
+        avatar: {},
+        door:{pos:p,size: [1.92, 1.92],
+          bodyType: 'static',
+          density: 0.0,
+          friction: 0.0,
+          restitution: 0.0,
+          texturePres: 'goaldoor.png',
+          texturePast: 'goaldoorPast.png'},
+        turrets:[]
+      }
+      console.log("levelwindow",newGS)
+      setGameObjects(newGS)
+      updateState(newGS)
+      
+    
   }
   return (
     <div className="LevelWindow" style = {windowStyling}>

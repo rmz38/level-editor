@@ -37,7 +37,7 @@ let levelInit = {
     dashForce: 1000
   },
   door: {
-    pos: [7.0, 10.0],
+    pos: [70, 100],
     size: [1.92, 1.92],
     bodyType: 'static',
     density: 0.0,
@@ -133,7 +133,7 @@ const App : React.FC = ({}) => {
         <button onClick= {() => exportToJson(JSON.parse(JSON.stringify(tester)))} style = {{height:'20px', fontSize:'7pt'}}>Download</button>
       </header>
       <div style = {containerStyling}>
-        <LevelWindow key = {JSON.stringify(gameObjects)} backgroundPastPath = {world.backgroundPast} backgroundPresPath = {world.backgroundPres} 
+        <LevelWindow key = {JSON.stringify(gameObjects) + "lw"} backgroundPastPath = {world.backgroundPast} backgroundPresPath = {world.backgroundPres} 
           gameObjectState = {gameObjects} updateState = {updateState}></LevelWindow>
         <ItemDashboard key = {JSON.stringify(gameObjects)} gameObjectsInput={gameObjects} update={updateState} selected={selectComponent}>
           </ItemDashboard>

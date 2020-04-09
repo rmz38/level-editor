@@ -21,8 +21,8 @@ const LevelWindowItem : React.FC<Props> = ({texturePres,texturePast,idInput,posI
   const [id, setId] = useState<string>(idInput);
   return (
     // updatePosInput takes a list of the new position values (calculated by adding drag pos to current pos) and name of the component
-    <Draggable onStop = {(e,data) => updatePosInput([posInput[0] + data.x,posInput[1] + data.y], 'door')}>
-        <div style = {{position:'absolute', left:posInput[0], bottom:posInput[1], }}><img src = {"/assets/" + texturePres}></img></div>
+    <Draggable onStop = {(e,data) => updatePosInput([posInput[0] + data.x,posInput[1] - data.y], 'door')}>
+        <img style = {{position:'absolute', left:posInput[0], bottom:posInput[1], }} src = {"/assets/" + texturePres}></img>
     </Draggable>
   
   );
