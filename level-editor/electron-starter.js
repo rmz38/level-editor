@@ -8,8 +8,9 @@ const path = require("path");
 let mainWindow;
 
 function createWindow() {
+
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 800, height: 600 });
+  mainWindow = new BrowserWindow({ width: 1200, height: 600 });
 
   // and load the index.html of the app.
   const startUrl =
@@ -31,6 +32,7 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null;
+  
   });
 }
 
@@ -58,3 +60,5 @@ app.on("activate", function() {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+const extpath = require('path')
+const os = require('os')
