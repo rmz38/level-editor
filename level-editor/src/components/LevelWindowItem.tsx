@@ -19,11 +19,15 @@ interface Props {
 
 const LevelWindowItem : React.FC<Props> = ({texturePres,texturePast,idInput,posInput,updatePosInput}) => {
   const [id, setId] = useState<string>(idInput);
+  let temp:any = 'x';
+  
   return (
     // updatePosInput takes a list of the new position values (calculated by adding drag pos to current pos) and name of the component
-    <Draggable onStop = {(e,data) => updatePosInput([posInput[0] + data.x,posInput[1] - data.y], 'door')}>
-        <img style = {{position:'absolute', left:posInput[0], bottom:posInput[1], }} src = {"/assets/" + texturePres}></img>
+    <div>
+    <Draggable onStop = {(e,data) => updatePosInput([(posInput[0] + data.x),posInput[1] - data.y], idInput)}>
+        <img ref = {el => temp = el} style = {{position:'absolute', left:posInput[0], bottom:posInput[1] }} src = {"/assets/" + texturePres +".png"}></img>
     </Draggable>
+    </div>
   
   );
 }

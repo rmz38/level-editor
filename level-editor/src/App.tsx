@@ -5,46 +5,53 @@ import ItemDashboard from './components/ItemDashboard';
 import LevelWindow from './components/LevelWindow';
 import Turret from './components/Turret';
 import Door from './components/Door';
+import Avatar from './components/Avatar';
 // import uuid from 'uuid';
 
 //initial json
 let levelInit = {
   world: {
-    gravity: -9.8,
-    bounds: [0.0,0.0,2.0,3.0],
-    scale: [2.0,3.0],
-    backgroundPres: 'present_room2.png',
-    backgroundPast: 'past_room2.png'
+    gravity: -14.7,
+    bounds: [32.0,18.0],
+    backgroundPres: 'present_background',
+    backgroundPast: 'past_background',
+    // density: 0.0,
+    // heavy_density: 10.0,
+    // friction: 0.6,
+    // restitution: 0.1,
+    // bullet_offset: 0.7,
+    // effect_volume: 0.8
   },
   platforms: [],
-  walls: [],
+  // "pos": [2.5,5.0],/
+  //   "shrink": [0.0216,0.01125],/
+  //   "texture": "dude",
+  //   "density": 1.0,
+  //   "bodytype": "dynamic", /
+  //   "avatarstanding": "avatarstanding",
+  //   "avatarcrouching": "avatarcrouching",
+  //   "avatardashing": "avatardashing",
+  //   "avatarfalling": "avatarfalling"
   avatar: {
     pos: [2.5, 5.0],
-    size: [0.45, 0.61],
-    bodyType: 'dynamic',
-    density: 1.0,
-    friction: 0.0,
-    restitution: 0.0,
-    damping: 10.0,
-    maxSpeed: 100.0,
-    jumpSound: 'dude',
+    shrink: [0.0216,0.01125],
     texture: 'dude',
-    bottomSensorName: 'dudeGroundSensor',
-    topSensorName: 'dudeTopSensor',
-    leftSensorName: 'dudeLeftSensor',
-    rightSensorName: 'dudeRightSensor',
-    dashRange: 4,
-    dashForce: 1000
+    density: 1.0,
+    bodytype: 'dynamic',
+    avatarstanding: 'avatarstanding',
+    avatarcrouching: 'avatarcrouching',
+    avatardashing: 'avatardashing',
+    avatarfalling: 'avatarfalling'
   },
   door: {
-    pos: [70, 100],
+    pos: [29.5, 15.5],
     size: [1.92, 1.92],
     bodyType: 'static',
     density: 0.0,
     friction: 0.0,
     restitution: 0.0,
-    texturePres: 'goaldoor.png',
-    texturePast: 'goaldoorPast.png'
+    texturePres: 'goaldoor',
+    texturePast: 'goaldoorPast'
   },
   turrets: []
 };
@@ -52,7 +59,8 @@ let levelInit = {
 //styling for container holding Level Window and ItemDashboard
 const containerStyling = {
   height: '600px',
-  width: '100%',
+  minWidth: '1200px',
+  width: '100vw',
   display: 'flex'
 }
 
@@ -86,7 +94,6 @@ const App : React.FC = ({}) => {
   
   const [world, setWorld] = useState(levelInit.world);
   const [platforms, setPlatforms] = useState(levelInit.platforms);
-  const [walls, setWalls] = useState(levelInit.walls);
   const [avatar, setAvatar] = useState(levelInit.avatar);
   const [door, setDoor] = useState(levelInit.door);
   const [turrets, setTurrets] = useState(levelInit.turrets);
@@ -97,15 +104,14 @@ const App : React.FC = ({}) => {
   let editorObjects = useState([{id:'world', selected: false}]); //not used yet
 
   let updateState = (newState:any) => { // updates state
-    let {world, platforms, walls, avatar, door, turrets} = newState;
-    console.log(newState)
+    let {world, platforms, avatar, door, turrets} = newState;
     setWorld(newState.world);
     setPlatforms(newState.platforms);
-    setWalls(newState.walls);
     setAvatar(newState.avatar);
     setDoor(newState.door);
     setTurrets(newState.turrets);
     setGameObjects(newState);
+    console.log("App avatar", avatar);
   }
   let selectComponent = (id:string, open:boolean) => { //not used for anything yet
     editorObjects.map(
@@ -122,7 +128,6 @@ const App : React.FC = ({}) => {
     door,
     world,
     platforms,
-    walls,
     avatar,
     turrets
   }

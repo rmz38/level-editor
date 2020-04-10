@@ -19,7 +19,7 @@ const World : React.FC<Props> = ({info, update,selected}) => {
 
   //update is a prop for updating in App the state, passes through ItemDashboard first
   const [isOpen, setIsOpen] = useState(false);
-  const {gravity, bounds, scale, backgroundPres, backgroundPast} = info
+  const {gravity, bounds, backgroundPres, backgroundPast} = info
   const toggle = () => { //for toggling hiding the menu
     setIsOpen(!isOpen);
     selected('world', isOpen);
@@ -33,36 +33,27 @@ const World : React.FC<Props> = ({info, update,selected}) => {
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Gravity</InputGroupText>
           </InputGroupAddon>
-          <Input onBlur={(e) =>{update({ gravity:+e.target.value, bounds:info.bounds, scale:info.scale, backgroundPres:info.backgroundPres, backgroundPast:info.backgroundPast})}} defaultValue={info.gravity} />
+          <Input onBlur={(e) =>{update({ gravity:+e.target.value, bounds:info.bounds, backgroundPres:info.backgroundPres, backgroundPast:info.backgroundPast})}} defaultValue={info.gravity} />
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Bounds</InputGroupText>
           </InputGroupAddon>
           {/* TODO: change bounds input  */}
-          <Input onBlur={e =>{update({ gravity:gravity, bounds:[+e.target.value,bounds[1],bounds[2],bounds[3]], scale:scale, backgroundPres:backgroundPres, backgroundPast:backgroundPast})}} defaultValue={bounds[0]} />
-          <Input onBlur={e =>{update({ gravity:gravity, bounds:[bounds[0],+e.target.value, bounds[2], bounds[3]], scale:scale, backgroundPres:backgroundPres, backgroundPast:backgroundPast})}} defaultValue={bounds[1]} />
-          <Input onBlur={e =>{update({ gravity:gravity, bounds:[bounds[0],bounds[1],+e.target.value,bounds[3]], scale:scale, backgroundPres:backgroundPres, backgroundPast:backgroundPast})}} defaultValue={bounds[2]} />
-          <Input onBlur={e =>{update({ gravity:gravity, bounds:[bounds[0],bounds[1],bounds[2],+e.target.value], scale:scale, backgroundPres:backgroundPres, backgroundPast:backgroundPast})}} defaultValue={bounds[3]} />
-        </InputGroup>
-        <InputGroup>
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Scale(h,w)</InputGroupText>
-          </InputGroupAddon>
-          <Input onBlur={e =>update({ gravity:gravity, bounds:bounds, scale:[+e.target.value,scale[1]], backgroundPres:backgroundPres, backgroundPast:backgroundPast})} defaultValue={scale[0]} />
-          <Input onBlur={e =>update({ gravity:gravity, bounds:bounds, scale:[scale[0], +e.target.value], backgroundPres:backgroundPres, backgroundPast:backgroundPast})} placeholder={scale[1]} />
+          <Input onBlur={e =>{update({ gravity:gravity, bounds:[+e.target.value,bounds[1]], backgroundPres:backgroundPres, backgroundPast:backgroundPast})}} defaultValue={bounds[0]} />
+          <Input onBlur={e =>{update({ gravity:gravity, bounds:[bounds[0],+e.target.value], backgroundPres:backgroundPres, backgroundPast:backgroundPast})}} defaultValue={bounds[1]} />
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Present Background</InputGroupText>
           </InputGroupAddon>
-          <Input onBlur={e =>{update({ gravity:info.gravity, bounds:info.bounds, scale:info.scale, backgroundPres:e.target.value, backgroundPast:info.backgroundPast})}} defaultValue={info.backgroundPres} />
+          <Input onBlur={e =>{update({ gravity:info.gravity, bounds:info.bounds, backgroundPres:e.target.value, backgroundPast:info.backgroundPast})}} defaultValue={info.backgroundPres} />
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Past Background</InputGroupText>
           </InputGroupAddon>
-          <Input onBlur={e =>update({ gravity:gravity, bounds:bounds, scale:scale, backgroundPres:backgroundPres, backgroundPast:e.target.value})} defaultValue={backgroundPast} />
+          <Input onBlur={e =>update({ gravity:gravity, bounds:bounds, backgroundPres:backgroundPres, backgroundPast:e.target.value})} defaultValue={backgroundPast} />
         </InputGroup>
       </Collapse>
     </div>

@@ -6,6 +6,7 @@ import CSS from 'csstype';
 import Turret from './Turret';
 import World from './World';
 import Door from './Door';
+import Avatar from './Avatar';
 
 interface Props {
     gameObjectsInput: any;
@@ -20,7 +21,7 @@ interface Props {
 const objectTypes = ['world', 'turret']
 const windowStyling : CSS.Properties= {
     height: '100%',
-    width: '20%',
+    width: '100%',
     background: '#aaaaaa',
     display: 'inline-block',
     float: 'right',
@@ -61,11 +62,26 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
     update(newGameObjects)
     setGameObjects(newGameObjects)
   }
+  let updateAvatarState = (newAva:any) => {
+    let {world, platforms, walls, door, turrets} = gameObjects
+    let newGameObjects = {
+      world:world,
+      platforms:platforms,
+      walls:walls,
+      avatar:newAva,
+      door:door,
+      turrets:turrets,
+    }
+    update(newGameObjects)
+    setGameObjects(newGameObjects)
+  }
 
   //list of components initially, will always have a door, world, and avatar, avatar not implemented yet
   const [componentList, setComponentList] = useState<any>([
-    <World key = {JSON.stringify(gameObjects)} info = {gameObjects.world} update = {updateWorldState} selected = {selected}></World>,
-    <Door key = {JSON.stringify(gameObjects)} info = {gameObjects.door} update = {updateDoorState} selected = {selected}></Door>]
+    <World key = {JSON.stringify(gameObjects) + " world"} info = {gameObjects.world} update = {updateWorldState} selected = {selected}></World>,
+    <Door key = {JSON.stringify(gameObjects) + " door"} info = {gameObjects.door} update = {updateDoorState} selected = {selected}></Door>,
+    <Avatar key = {JSON.stringify(gameObjects) + " avatar"} info = {gameObjects.avatar} update = {updateAvatarState} selected = {selected}></Avatar>
+    ]
     )
   
   return (

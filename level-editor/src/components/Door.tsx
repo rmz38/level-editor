@@ -56,7 +56,7 @@ const Door : React.FC<Props> = ({info, update,selected}) => {
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Density</InputGroupText>
           </InputGroupAddon>
-          <Input onBlur={e =>{console.log(e.target.value); update({ pos:pos, size:size, bodytype:bodytype, density:+e.target.value, 
+          <Input onBlur={e =>{update({ pos:pos, size:size, bodytype:bodytype, density:+e.target.value, 
             friction:friction, restitution:restitution, texturePres:texturePres, texturePast:texturePast})}} defaultValue={density} />
         </InputGroup>
         <InputGroup>
