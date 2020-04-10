@@ -1,21 +1,29 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require("electron");
+const { remote, app, BrowserWindow } = require("electron");
 const url = require("url");
 const path = require("path");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+//create a function which returns true or false to recognize a development environment
+// const isDev = () => process.env.NODE_ENV === 'development';
+// const directory = isDev() ? process.cwd().concat('/app') : process.env.APP_PATH;
+// const mainProcess = remote.require(path.join(directory, '/electron.js'));
 
 function createWindow() {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
+  // Create the browser window.
+  mainWindow = new BrowserWindow({ width: 1200, height: 600, webPreferences: {
+    webSecurity: false
+  }});
+  path.resolve(__dirname, 'data.json')
   // and load the index.html of the app.
   const startUrl =
     process.env.ELECTRON_START_URL ||
     url.format({
-      pathname: path.join(__dirname, "/../app/build/index.html"),
+      pathname: `${__dirname}/build/index.html`,
+      // config.devtron = false;
       protocol: "file:",
       slashes: true
     });
@@ -31,6 +39,7 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null;
+  
   });
 }
 
@@ -58,3 +67,6 @@ app.on("activate", function() {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+// const extpath = require('path')
+// const os = require('os')
+process.env['APP_PATH'] = app.getAppPath();

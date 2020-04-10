@@ -38,9 +38,8 @@ const World : React.FC<Props> = ({info, update,selected}) => {
   };
   let gravityState = gravity
   let boundsState = bounds
-  let backgroundPastState = backgroundPast
-  let backgroundPresState = backgroundPres
-  let diamondshapeState = diamondshape
+  let backgroundPresState = backgroundPast
+  let diamondshapeShape = diamondshape
   let capsuleshapeState = capsuleshape 
   let roundshapeState = roundshape
   let densityShape = density
@@ -50,24 +49,6 @@ const World : React.FC<Props> = ({info, update,selected}) => {
   let bullet_offsetState = bullet_offset
   let effect_volumeState = effect_volume
   
-  let updatedState = () => {
-    return {
-        gravity:gravityState,
-        bounds:boundsState,
-        backgroundPast:backgroundPastState,
-        backgroundPres: backgroundPresState,
-        diamondshape: diamondshapeState,
-        capsuleshape: capsuleshapeState,
-        roundshape: roundshapeState,
-        density: densityShape,
-        heavy_density: heavy_densityState,
-        friction: frictionState,
-        restitution: restitutionState,
-        bullet_offset: bullet_offsetState,
-        effect_volume: effect_volumeState
-    }
-}
-
   return (
     <div >
       <Button color="primary" onClick = {toggle} id="world" style={{ marginBottom: '1rem' }}>World</Button>
@@ -76,15 +57,27 @@ const World : React.FC<Props> = ({info, update,selected}) => {
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Gravity</InputGroupText>
           </InputGroupAddon>
-          <Input onBlur={(e) =>{gravityState = +e.target.value; update(updatedState())}} defaultValue={info.gravity} />
+          <Input onBlur={(e) =>{update({ gravity:+e.target.value, bounds:info.bounds, backgroundPres:info.backgroundPres, backgroundPast:info.backgroundPast})}} defaultValue={info.gravity} />
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Bounds</InputGroupText>
           </InputGroupAddon>
           {/* TODO: change bounds input  */}
-          <Input onBlur={e =>{boundsState = [+e.target.value,boundsState[1]] ;update(updatedState())}} defaultValue={bounds[0]} />
+          <Input onBlur={e =>{update({ gravity:gravity, bounds:[+e.target.value,bounds[1]], backgroundPres:backgroundPres, backgroundPast:backgroundPast})}} defaultValue={bounds[0]} />
           <Input onBlur={e =>{update({ gravity:gravity, bounds:[bounds[0],+e.target.value], backgroundPres:backgroundPres, backgroundPast:backgroundPast})}} defaultValue={bounds[1]} />
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Present Background</InputGroupText>
+          </InputGroupAddon>
+          <Input onBlur={e =>{update({ gravity:info.gravity, bounds:info.bounds, backgroundPres:e.target.value, backgroundPast:info.backgroundPast})}} defaultValue={info.backgroundPres} />
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Past Background</InputGroupText>
+          </InputGroupAddon>
+          <Input onBlur={e =>update({ gravity:gravity, bounds:bounds, backgroundPres:backgroundPres, backgroundPast:e.target.value})} defaultValue={backgroundPast} />
         </InputGroup>
       </Collapse>
     </div>

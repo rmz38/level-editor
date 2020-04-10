@@ -2,6 +2,7 @@
   "name": "level-editor",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -9,11 +10,25 @@
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
+    "@types/react-collapse": "^5.0.0",
     "@types/react-dom": "^16.9.0",
+    "@types/reactstrap": "^8.4.2",
+    "bootstrap": "^4.4.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.0",
+    "react-collapse": "^5.0.1",
     "react-dom": "^16.13.1",
+    "react-draggable": "^4.2.0",
     "react-scripts": "3.4.1",
-    "typescript": "~3.7.2"
+    "reactstrap": "^8.4.1",
+    "typescript": "~3.7.2",
+    "uuid": "^7.0.3"
+  },
+  "build": {
+    "directories": {
+      "output": "release/"
+    }
   },
   "main": "./electron-starter.js",
   "scripts": {
@@ -43,6 +58,7 @@
   "devDependencies": {
     "cross-env": "^7.0.2",
     "electron": "^8.2.1",
+    "electron-react-devtools": "^0.5.3",
     "foreman": "^3.0.1"
   }
 }

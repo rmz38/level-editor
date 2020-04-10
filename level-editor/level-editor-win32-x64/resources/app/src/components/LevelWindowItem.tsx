@@ -14,12 +14,11 @@ interface Props {
     posInput: Array<number>
     updatePosInput: (a:Array<number>, idUpdate:string) => void
     centered:boolean
-    scale: number
 }
 
 // 'url("/assets/past_room2.png")'
 
-const LevelWindowItem : React.FC<Props> = ({texturePres,texturePast,idInput,posInput,updatePosInput, centered, scale}) => {
+const LevelWindowItem : React.FC<Props> = ({texturePres,texturePast,idInput,posInput,updatePosInput, centered}) => {
   const [id, setId] = useState<string>(idInput);
   const [height,setHeight] = useState(90)
   const [width,setWidth] = useState(90)
@@ -33,10 +32,10 @@ const LevelWindowItem : React.FC<Props> = ({texturePres,texturePast,idInput,posI
   // }
   return (
     // updatePosInput takes a list of the new position values (calculated by adding drag pos to current pos) and name of the component
-    // .008 * 600/18
+    
     <div>
     <Draggable onStop = {(e,data) => updatePosInput([(posInput[0] + data.x),posInput[1] - data.y], idInput)}>
-        <img ref = {el => temp = el} src = {"./assets/" + texturePres +".png"} style = {{height: height * scale +'px', position:'absolute', left:centered ? posInput[0] - width/2 : posInput[0], bottom:centered ? posInput[1] - height/2 : posInput[1]}}
+        <img ref = {el => temp = el} src = {"/assets/" + texturePres +".png"} style = {{position:'absolute', left:centered ? posInput[0] - width/2 : posInput[0], bottom:centered ? posInput[1] - height/2 : posInput[1]}}
           onLoad={(e) => {setWidth(temp.naturalWidth); setHeight(temp.naturalHeight);}}></img>
     </Draggable>
     {/* <Draggable onStop = {(e,data) => updatePosInput([(posInput[0] + data.x),posInput[1] - data.y], idInput)}>
