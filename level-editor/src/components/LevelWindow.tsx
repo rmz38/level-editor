@@ -117,6 +117,9 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
   for (let [key, value] of Object.entries(rounds)) {
     windowItems.push(<LevelWindowItem centered = {false} key = {key} texturePres = {rounds[key].texture} idInput = {key} posInput = {gameCoordToPx(rounds[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
   }
+  for (let [key, value] of Object.entries(enemies)) {
+    windowItems.push(<LevelWindowItem centered = {true} key = {key} texturePres = {enemies[key].texture} idInput = {key} posInput = {gameCoordToPx(enemies[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
+  }
   return (
     <div className="LevelWindow" style = {windowStyling}>
       <img style = {{position:'absolute', top:'0px', left:'0px', height:'600px',width:'1000px', zIndex:-1}}src = {"/assets/"+ backgroundPastPath+".png"}></img>

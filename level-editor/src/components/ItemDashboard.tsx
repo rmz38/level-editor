@@ -10,6 +10,7 @@ import Avatar from './Avatar';
 import Capsule from './Capsule';
 import Diamond from './Diamond';
 import Round from './Round';
+import Enemy from './Enemy';
 
 interface Props {
     gameObjectsInput: any;
@@ -190,6 +191,32 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
     update(newGameObjects)
     setGameObjects(newGameObjects)
   }
+  let updateEnemyState = (newEnemy:any, id:string) => {
+    let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
+    let newEnemies = enemies;
+    if (newEnemy == 'delete'){
+      delete newEnemies[id]
+    }else{
+      for (let [key, value] of Object.entries(rounds)) {
+        if(key == id){
+          newEnemies[key] = newEnemy;
+          break;
+        }
+      }
+    }
+    let newGameObjects = {
+      world:world,
+      avatar:avatar,
+      door:door,
+      turrets:turrets,
+      capsules:capsules,
+      diamonds:diamonds,
+      rounds:rounds,
+      enemies:newEnemies,
+    }
+    update(newGameObjects)
+    setGameObjects(newGameObjects)
+  }
   //list of components initially, will always have a door, world, and avatar, avatar not implemented yet
   const [componentList, setComponentList] = useState<any>([
     <World key = {JSON.stringify(gameObjects) + " world"} info = {gameObjects.world} update = {updateWorldState} selected = {selected}></World>,
@@ -209,6 +236,9 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
   }
   for (let [key, value] of Object.entries(gameObjects.rounds)) {
     components.push(<Round key = {key} info = {value} id = {key} update = {updateRoundState} selected = {selected}></Round>);
+  }
+  for (let [key, value] of Object.entries(gameObjects.enemies)) {
+    components.push(<Enemy key = {key} info = {value} id = {key} update = {updateEnemyState} selected = {selected}></Enemy>);
   }
   // <Turret key = {JSON.stringify(gameObjects) + 'turret'} info = {gameObjects.turrets.turret1} id = 'turret1' update = {updateTurretState} selected = {selected}></Turret>
   return (
