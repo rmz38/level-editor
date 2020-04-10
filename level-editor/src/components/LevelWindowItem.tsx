@@ -19,14 +19,28 @@ interface Props {
 
 const LevelWindowItem : React.FC<Props> = ({texturePres,texturePast,idInput,posInput,updatePosInput}) => {
   const [id, setId] = useState<string>(idInput);
-  let temp:any = 'x';
-  
+  const [height,setHeight] = useState(90)
+  const [width,setWidth] = useState(90)
+  let temp:any;
+  // let pxToGameCoord = (px:Array<number>) => {
+  //   return [px[0] * world.bounds[0] / 1200, px[1] * world.bounds[1] / 600]
+  // }
+  // let testheight:number | undefined= 90;
+  // let wrap = (n:number) => {
+  //   testheight = n
+  // }
   return (
     // updatePosInput takes a list of the new position values (calculated by adding drag pos to current pos) and name of the component
+    
     <div>
     <Draggable onStop = {(e,data) => updatePosInput([(posInput[0] + data.x),posInput[1] - data.y], idInput)}>
-        <img ref = {el => temp = el} style = {{position:'absolute', left:posInput[0], bottom:posInput[1] }} src = {"/assets/" + texturePres +".png"}></img>
+        <img ref = {el => temp = el} src = {"/assets/" + texturePres +".png"} style = {{position:'absolute', left:posInput[0] - width/2, bottom: posInput[1] - height/2 }}
+          onLoad={(e) => {setWidth(temp.naturalWidth); setHeight(temp.naturalHeight); console.log(idInput + " " + temp.naturalHeight + " " + posInput[0])}}></img>
     </Draggable>
+    {/* <Draggable onStop = {(e,data) => updatePosInput([(posInput[0] + data.x),posInput[1] - data.y], idInput)}>
+        <img ref = {el => temp = el} src = {"/assets/" + texturePres +".png"} style = {{position:'absolute', left:posInput[0], bottom: posInput[1]}}
+         ></img>
+    </Draggable> */}
     </div>
   
   );

@@ -33,60 +33,94 @@ const windowStyling : CSS.Properties= {
 
 const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) => {
   const [gameObjects, setGameObjects] = useState<any>(JSON.parse(JSON.stringify(gameObjectsInput)));
-  
+  let {avatar, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
   //updates in App the state assuming world was changed
   let updateWorldState = (newWorld:any) => {
-    let {platforms, walls, avatar, door, turrets} = gameObjects
+    
     let newGameObjects = {
       world:newWorld,
-      platforms:platforms,
-      walls:walls,
       avatar:avatar,
       door:door,
       turrets:turrets,
+      capsules:capsules,
+      diamonds:diamonds,
+      rounds:rounds,
+      enemies:enemies,
     }
     update(newGameObjects);
     setGameObjects(newGameObjects)
   }
   //updates Apps state assuming door was changed
   let updateDoorState = (newDoor:any) => {
-    let {world, platforms, walls, avatar, turrets} = gameObjects
+    let {world, avatar, turrets, diamonds, rounds, enemies, capsules} = gameObjects
     let newGameObjects = {
       world:world,
-      platforms:platforms,
-      walls:walls,
       avatar:avatar,
       door:newDoor,
       turrets:turrets,
+      capsules:capsules,
+      diamonds:diamonds,
+      rounds:rounds,
+      enemies:enemies,
     }
     update(newGameObjects)
     setGameObjects(newGameObjects)
   }
+  //updates Apps state assuming avatar was changed
   let updateAvatarState = (newAva:any) => {
-    let {world, platforms, walls, door, turrets} = gameObjects
+    let {world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
     let newGameObjects = {
       world:world,
-      platforms:platforms,
-      walls:walls,
       avatar:newAva,
       door:door,
       turrets:turrets,
+      capsules:capsules,
+      diamonds:diamonds,
+      rounds:rounds,
+      enemies:enemies,
     }
     update(newGameObjects)
     setGameObjects(newGameObjects)
   }
+  let updateTurretState = (newTurr:any, id:string) => {
+    let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
+    let newTurrets = turrets;
+    for (let [key, value] of Object.entries(turrets)) {
+      if(key == id){
+        newTurrets[key] = newTurr;
+        break;
+      }
+    }
+    let newGameObjects = {
+      world:world,
+      avatar:avatar,
+      door:door,
+      turrets:newTurrets,
+      capsules:capsules,
+      diamonds:diamonds,
+      rounds:rounds,
+      enemies:enemies,
+    }
+    update(newGameObjects)
+    setGameObjects(newGameObjects)
+  }
+  
 
   //list of components initially, will always have a door, world, and avatar, avatar not implemented yet
   const [componentList, setComponentList] = useState<any>([
     <World key = {JSON.stringify(gameObjects) + " world"} info = {gameObjects.world} update = {updateWorldState} selected = {selected}></World>,
     <Door key = {JSON.stringify(gameObjects) + " door"} info = {gameObjects.door} update = {updateDoorState} selected = {selected}></Door>,
-    <Avatar key = {JSON.stringify(gameObjects) + " avatar"} info = {gameObjects.avatar} update = {updateAvatarState} selected = {selected}></Avatar>
+    <Avatar key = {JSON.stringify(gameObjects) + " avatar"} info = {gameObjects.avatar} update = {updateAvatarState} selected = {selected}></Avatar>,
     ]
     )
-  
+  let components = componentList;
+  for (let [key, value] of Object.entries(gameObjects.turrets)) {
+    components.push(<Turret key = {JSON.stringify(gameObjects) + key} info = {value} id = {key} update = {updateTurretState} selected = {selected}></Turret>);
+  }
+  // <Turret key = {JSON.stringify(gameObjects) + 'turret'} info = {gameObjects.turrets.turret1} id = 'turret1' update = {updateTurretState} selected = {selected}></Turret>
   return (
     <div className="ItemDashboard" style = {windowStyling}>
-        {componentList}
+        {components}
 
     </div>
   );

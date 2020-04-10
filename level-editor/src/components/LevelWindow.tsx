@@ -20,7 +20,7 @@ interface Props {
 const windowStyling : CSS.Properties= {
     height: '600px',
     minHeight:'600px',
-    minWidth: '1200px',
+    minWidth: '1000px',
     width: '1200px',
     float: 'left',
     color: '#000000',
@@ -37,15 +37,15 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
 
   //takes an array representing a position in game coordinates and converts to array of pixel coordinates
   let gameCoordToPx = (gc:Array<number>) => {
-    return [gc[0] * 1200 / world.bounds[0], gc[1] * 600 / world.bounds[1]]
+    return [gc[0] * 1000 / world.bounds[0], gc[1] * 600 / world.bounds[1]]
   }
 
   //takes an array representing a position in pixels and converts to array of game coordinates
   let pxToGameCoord = (px:Array<number>) => {
-    return [px[0] * world.bounds[0] / 1200, px[1] * world.bounds[1] / 600]
+    return [px[0] * world.bounds[0] / 1000, px[1] * world.bounds[1] / 600]
   }
   let updatePos = (p:Array<number>, id:string) =>{
-    pxToGameCoord(p)
+    p = pxToGameCoord(p)
     if(id == 'door'){
       // let { size, bodyType,density,friction,restitution,texturePres,texturePast } = gameObjectState.door
       door.pos = p
@@ -72,7 +72,7 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
 
   return (
     <div className="LevelWindow" style = {windowStyling}>
-      <img style = {{position:'absolute', top:'0px', left:'0px', height:'600px',width:'1200px', zIndex:-1}}src = {"/assets/"+ backgroundPastPath+".png"}></img>
+      <img style = {{position:'absolute', top:'0px', left:'0px', height:'600px',width:'1000px', zIndex:-1}}src = {"/assets/"+ backgroundPastPath+".png"}></img>
       {windowItems}
     </div>
   );

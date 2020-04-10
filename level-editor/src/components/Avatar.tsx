@@ -56,7 +56,6 @@ const Avatar : React.FC<Props> = ({info, update,selected}) => {
     setIsOpen(!isOpen);
     selected('world', isOpen);
   };
-  console.log(info)
   return (
     <div >
       <Button color="primary" onClick = {toggle} id="world" style={{ marginBottom: '1rem' }}>Avatar</Button>

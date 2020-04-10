@@ -94,11 +94,3 @@ const Door : React.FC<Props> = ({info, update,selected}) => {
 
 export default Door;
 
-// pos: [2.0, 10.0],
-//     size: [1.92, 1.92],
-//     bodyType: 'static',
-//     density: 0.0,
-//     friction: 0.0,
-//     restitution: 0.0,
-//     texturePres: 'goaldoorPres',
-//     texturePast: 'goaldoorPast'
