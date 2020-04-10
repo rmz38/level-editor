@@ -1,6 +1,6 @@
 import React, { createRef, Fragment, useState } from 'react'
 import { Collapse } from 'react-collapse';
-import { Button, ButtonGroup, CardBody, Card } from 'reactstrap';
+import { Button, CardBody, Card, ButtonGroup } from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 // ES6
@@ -14,68 +14,71 @@ interface Props {
   // isMenuOpenFn: (b:boolean) => boolean
   // isMenuOpen?: boolean
 }
-// "turret2": {
-//     "pos": [8.5, 5.0],
-//     "shrink": [0.0168, 0.021375],
-//     "texture": "turret",
-//     "entitytype": "past",
-//     "cooldown": 480,
-//     "direction": [0.0, 2.0],
+// "presentcapsule1": {
+//     "name": "present_capsule",
+//     "pos": [
+//       3.0,
+//       7.0
+//     ],
 //     "bodytype": "static",
-//     "density": 1.0
+//     "density": 0.0,
+//     "friction": 0.6,
+//     "restitution": 0.1,
+//     "texture": "present_capsule",
+//     "space": 1
 //   }
 
-const Turret : React.FC<Props> = ({info, update, selected, id}) => {
+const Capsule : React.FC<Props> = ({info, update, selected, id}) => {
 
   //update is a prop for updating in App the state, passes through ItemDashboard first
   const [isOpen, setIsOpen] = useState(false);
-  const {pos, shrink, texture, entitytype, cooldown, direction, bodytype, density} = info
+  const {name, pos, friction, restitution, texture, space, bodytype, density} = info
 
+  let nameState = name
   let posState= pos
-  let shrinkState = shrink
-  let textureState = texture
-  let densityState = density
   let bodytypeState = bodytype
-  let entitytypeState = entitytype
-  let cooldownState = cooldown
-  let directionState = direction
+  let densityState = density
+  let frictionState = friction
+  let restitutionState = restitution
+  let textureState = texture
+  let spaceState = space
 
   let updatedState = () => {
-      return {
-          pos: posState,
-          shrink: shrinkState,
-          texture: textureState,
-          density: densityState,
-          bodytype: bodytypeState,
-          entitytype:entitytypeState,
-          cooldown:cooldownState,
-          direction:directionState
-      }
+    return {
+      name:nameState,
+      pos:posState,
+      bodytype:bodytypeState,
+      density:densityState,
+      friction:frictionState,
+      resitution:restitutionState,
+      texture:textureState,
+      space:spaceState
+    }
   }
   const toggle = () => { //for toggling hiding the menu
     setIsOpen(!isOpen);
-    selected('world', isOpen);
+    selected('capsule', isOpen);
   };
+  console.log("capsule" ,info);
   return (
     <div >
       <ButtonGroup>
-        <Button color="primary" onClick = {toggle} id="world" style={{ marginBottom: '1rem' }}>{id}</Button>
+        <Button color="primary" onClick = {toggle} id="capsule" style={{ marginBottom: '1rem' }}>{id}</Button>
         <Button color="danger" onClick = {() => update('delete', id)} id="delete" style={{ marginBottom: '1rem' }}>Delete</Button>
       </ButtonGroup>
       <Collapse isOpened={isOpen}>
+      <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Name</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{nameState = e.target.value; update(updatedState(), id)}} defaultValue = {name}/>
+        </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Position</InputGroupText>
           </InputGroupAddon>
             <Input onBlur={(e) =>{posState =[+e.target.value,posState[1]]; update(updatedState(), id)}} defaultValue = {info.pos[0]}/>
             <Input onBlur={(e) =>{posState =[posState[0],+e.target.value]; update(updatedState(), id)}} defaultValue = {pos[1]}/>
-        </InputGroup>
-        <InputGroup>
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Shrink</InputGroupText>
-          </InputGroupAddon>
-            <Input onBlur={(e) =>{shrinkState =[+e.target.value,shrinkState[1]]; update(updatedState(), id)}} defaultValue = {shrink[0]}/>
-            <Input onBlur={(e) =>{shrinkState =[shrinkState[0],+e.target.value]; update(updatedState(), id)}} defaultValue = {shrink[1]}/>
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
@@ -97,26 +100,25 @@ const Turret : React.FC<Props> = ({info, update, selected, id}) => {
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
-            <InputGroupText>Entity Type</InputGroupText>
+            <InputGroupText>Friction</InputGroupText>
           </InputGroupAddon>
-            <Input onBlur={(e) =>{entitytypeState = e.target.value; update(updatedState(), id)}} defaultValue = {entitytype}/>
+            <Input onBlur={(e) =>{frictionState = +e.target.value; update(updatedState(), id)}} defaultValue = {friction}/>
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
-            <InputGroupText>Cooldown</InputGroupText>
+            <InputGroupText>Restitution</InputGroupText>
           </InputGroupAddon>
-            <Input onBlur={(e) =>{cooldownState = +e.target.value; update(updatedState(), id)}} defaultValue = {cooldown}/>
+            <Input onBlur={(e) =>{restitutionState = +e.target.value; update(updatedState(), id)}} defaultValue = {restitution}/>
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
-            <InputGroupText>Direction</InputGroupText>
+            <InputGroupText>Space</InputGroupText>
           </InputGroupAddon>
-            <Input onBlur={(e) =>{directionState = [+e.target.value, direction[1]]; update(updatedState(), id)}} defaultValue = {direction[0]}/>
-            <Input onBlur={(e) =>{directionState = [direction[0], +e.target.value]; update(updatedState(), id)}} defaultValue = {direction[1]}/>
+            <Input onBlur={(e) =>{spaceState = +e.target.value; update(updatedState(), id)}} defaultValue = {space}/>
         </InputGroup>
       </Collapse>
     </div>
   );
 }
 
-export default Turret;
+export default Capsule;
