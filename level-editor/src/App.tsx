@@ -164,11 +164,10 @@ let levelInit = {
     density: 0.0,
     friction: 0.0,
     restitution: 0.0,
-    texturePres: 'goaldoor',
-    texturePast: 'goaldoorPast',
-    // sensor: true,
-    // nextlevel: 0,
-    // space: 3
+    texture: 'goal',
+    sensor: true,
+    nextlevel: 0,
+    space: 3
   },
   turrets: {
     turret1: {
@@ -264,9 +263,35 @@ const App : React.FC = ({}) => {
     })
   }
   //used for debugging and formatting json during download
+
+  // gravity: -14.7,
+  // bounds: [32.0,18.0],
+  // "present_background": "present_background",
+  // "past_background": "past_background",
+  // diamondshape: [ 0.2, 1.8, 2.4, 1.8, 1.4, 0.1],
+  // capsuleshape: [0.2,1.1,2.9,1.1,2.9,0.6,1.7,0.1,0.2,0.6],
+  // roundshape: [ 0.1, 1.4, 0.5, 1.7, 2.4, 1.7, 2.7, 1.4, 2.6, 0.8, 2.0, 0.2, 0.8, 0.2 ],
+  // density: 0.0,
+  // heavy_density: 10.0,
+  // friction: 0.6,
+  // restitution: 0.1,
+  // bullet_offset: 0.7,
+  // effect_volume: 0.8
   let tester = {
+    gravity: world.gravity,
+    bounds: world.bounds,
+    present_background: world.backgroundPres,
+    past_background: world.backgroundPast,
+    diamondshape: world.diamondshape,
+    capsuleshape: world.capsuleshape,
+    roundshape: world.roundshape,
+    density: world.density,
+    heavy_density: world.heavy_density,
+    friction: world.friction,
+    restitution: world.restitution,
+    bullet_offset: world.bullet_offset,
+    effect_volume: world.effect_volume,
     door,
-    world,
     avatar,
     turrets,
     capsules,

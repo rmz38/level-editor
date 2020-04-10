@@ -76,16 +76,47 @@ const World : React.FC<Props> = ({info, update,selected}) => {
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Gravity</InputGroupText>
           </InputGroupAddon>
-          <Input onBlur={(e) =>{gravityState = +e.target.value; update(updatedState())}} defaultValue={info.gravity} />
+          <Input onBlur={(e) =>{gravityState = +e.target.value; update(updatedState())}} defaultValue={gravity} />
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Bounds</InputGroupText>
           </InputGroupAddon>
           {/* TODO: change bounds input  */}
-          <Input onBlur={e =>{boundsState = [+e.target.value,boundsState[1]] ;update(updatedState())}} defaultValue={bounds[0]} />
-          <Input onBlur={e =>{update({ gravity:gravity, bounds:[bounds[0],+e.target.value], backgroundPres:backgroundPres, backgroundPast:backgroundPast})}} defaultValue={bounds[1]} />
+          <Input onBlur={e =>{boundsState = [+e.target.value,boundsState[1]]; update(updatedState())}} defaultValue={bounds[0]} />
+          <Input onBlur={e =>{boundsState = [boundsState[0], +e.target.value]; update(updatedState())}} defaultValue = {bounds[1]} />
         </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Past Background</InputGroupText>
+          </InputGroupAddon>
+          <Input onBlur={(e) =>{backgroundPastState = e.target.value; update(updatedState())}} defaultValue={backgroundPast} />
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Pres Background</InputGroupText>
+          </InputGroupAddon>
+          <Input onBlur={(e) =>{backgroundPresState = e.target.value; update(updatedState())}} defaultValue={backgroundPres} />
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Bullet Offset</InputGroupText>
+          </InputGroupAddon>
+          <Input onBlur={(e) =>{bullet_offsetState = +e.target.value; update(updatedState())}} defaultValue={bullet_offset} />
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Effect Volume</InputGroupText>
+          </InputGroupAddon>
+          <Input onBlur={(e) =>{effect_volumeState = +e.target.value; update(updatedState())}} defaultValue={effect_volume} />
+        </InputGroup>
+        {/* <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Diamond Shape</InputGroupText>
+          </InputGroupAddon>
+          <Input onBlur={(e) =>{backgroundPresState = e.target.value; update(updatedState())}} defaultValue={backgroundPres} />
+        </InputGroup> */}
+        
       </Collapse>
     </div>
   );

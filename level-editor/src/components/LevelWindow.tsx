@@ -102,23 +102,23 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
   }
   // rescale formular platform height =  .008 * 600/world.bounds[1]
   let windowItems = [
-    <LevelWindowItem scale = {.03 * 600 / world.bounds[1]} centered = {true} key = {"door"} texturePres = {gameObjectState.door.texturePres} idInput = "door" posInput = {gameCoordToPx(gameObjectState.door.pos)} updatePosInput = {updatePos}></LevelWindowItem>,
-    <LevelWindowItem scale = {.0225 * 600 / world.bounds[1]} centered = {true} key = {"avatar"} texturePres = {gameObjectState.avatar.texture} idInput = "avatar" posInput = {gameCoordToPx(gameObjectState.avatar.pos)} updatePosInput = {updatePos}></LevelWindowItem>
+    <LevelWindowItem scaleX = {.03 * 1000/ world.bounds[0]} scaleY = {.03 * 600 / world.bounds[1]} centered = {true} key = {"door"} texturePres = {gameObjectState.door.texture} idInput = "door" posInput = {gameCoordToPx(gameObjectState.door.pos)} updatePosInput = {updatePos}></LevelWindowItem>,
+    <LevelWindowItem scaleX = {.024 * 1000/ world.bounds[0]} scaleY = {.0225 * 600 / world.bounds[1]} centered = {true} key = {"avatar"} texturePres = {gameObjectState.avatar.texture} idInput = "avatar" posInput = {gameCoordToPx(gameObjectState.avatar.pos)} updatePosInput = {updatePos}></LevelWindowItem>
   ]
   for (let [key, value] of Object.entries(turrets)) {
-    windowItems.push(<LevelWindowItem scale = {.03 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {turrets[key].texture} idInput = {key} posInput = {gameCoordToPx(turrets[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
+    windowItems.push(<LevelWindowItem scaleX = {.024 * 1000/ world.bounds[0]} scaleY = {.0225 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {turrets[key].texture} idInput = {key} posInput = {gameCoordToPx(turrets[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
   }
   for (let [key, value] of Object.entries(capsules)) {
-    windowItems.push(< LevelWindowItem  scale = {.008 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {capsules[key].texture} idInput = {key} posInput = {gameCoordToPx(capsules[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
+    windowItems.push(< LevelWindowItem scaleX = {.008 * 1000/ world.bounds[0]} scaleY = {.0075 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {capsules[key].texture} idInput = {key} posInput = {gameCoordToPx(capsules[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
   }
   for (let [key, value] of Object.entries(diamonds)) {
-    windowItems.push(<LevelWindowItem scale = {.008 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {diamonds[key].texture} idInput = {key} posInput = {gameCoordToPx(diamonds[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
+    windowItems.push(<LevelWindowItem scaleX = {.008 * 1000/ world.bounds[0]} scaleY = {.0075 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {diamonds[key].texture} idInput = {key} posInput = {gameCoordToPx(diamonds[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
   }
   for (let [key, value] of Object.entries(rounds)) {
-    windowItems.push(<LevelWindowItem scale = {.008 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {rounds[key].texture} idInput = {key} posInput = {gameCoordToPx(rounds[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
+    windowItems.push(<LevelWindowItem scaleX = {.008 * 1000/ world.bounds[0]} scaleY = {.0075 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {rounds[key].texture} idInput = {key} posInput = {gameCoordToPx(rounds[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
   }
   for (let [key, value] of Object.entries(enemies)) {
-    windowItems.push(<LevelWindowItem scale = {.0225 * 600/world.bounds[1]} centered = {true} key = {key} texturePres = {enemies[key].texture} idInput = {key} posInput = {gameCoordToPx(enemies[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
+    windowItems.push(<LevelWindowItem scaleX = {.024 * 1000/ world.bounds[0]} scaleY = {.0225 * 600/world.bounds[1]} centered = {true} key = {key} texturePres = {enemies[key].texture} idInput = {key} posInput = {gameCoordToPx(enemies[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
   }
   return (
     <div className="LevelWindow" style = {windowStyling}>
