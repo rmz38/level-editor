@@ -55,7 +55,7 @@ const Enemy : React.FC<Props> = ({info, update, selected, id}) => {
   return (
     <div >
       <ButtonGroup>
-        <Button color="primary" onClick = {toggle} id="world" style={{ marginBottom: '1rem' }}>{id}</Button>
+        <Button color="primary" onClick = {toggle} id="world" style={{ backgroundColor: '#f79400', marginBottom: '1rem' }}>{id}</Button>
         <Button color="danger" onClick = {() => update('delete', id)} id="delete" style={{ marginBottom: '1rem' }}>Delete</Button>
       </ButtonGroup>
       <Collapse isOpened={isOpen}>

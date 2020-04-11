@@ -120,15 +120,18 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
   let updateCapsuleState = (newCap:any, id:string) => {
     let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
     let newCapsules = capsules;
+    let add = true;
     if(newCap == 'delete'){
       delete newCapsules[id]
     } else {
       for (let [key, value] of Object.entries(capsules)) {
         if(key == id){
           newCapsules[key] = newCap;
+          add = false;
           break;
         }
       }
+      if(add){newCapsules[id] = newCap}
     }
     let newGameObjects = {
       world:world,
@@ -146,15 +149,18 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
   let updateDiamondState = (newDia:any, id:string) => {
     let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
     let newDiamonds = diamonds;
+    let add = true;
     if(newDia = 'delete'){
       delete newDiamonds[id]
     } else {
       for (let [key, value] of Object.entries(diamonds)) {
         if(key == id){
           newDiamonds[key] = newDia;
+          add = false;
           break;
         }
       }
+      if(add){newDiamonds[id] = newDia}
     }
     let newGameObjects = {
       world:world,
@@ -172,15 +178,18 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
   let updateRoundState = (newRound:any, id:string) => {
     let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
     let newRounds = rounds;
+    let add = true;
     if (newRound == 'delete'){
       delete newRounds[id]
     }else{
       for (let [key, value] of Object.entries(rounds)) {
         if(key == id){
           newRounds[key] = newRound;
+          add = false;
           break;
         }
       }
+      if(add){newRounds[id] = newRound}
     }
     let newGameObjects = {
       world:world,
@@ -226,12 +235,12 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
   }
   let addPlatform = (newPlatform:any, id:string, type:string) => {
     let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
-    if( type.includes('round')){
-      updateRoundState(newPlatform, id)
-    } else if (type.includes('diamond')){
-      updateDiamondState(newPlatform, id)
+    if( type == 'round'){
+      updateRoundState(newPlatform, id + (Object.keys(rounds).length + 1))
+    } else if (type == 'diamond'){
+      updateDiamondState(newPlatform, id + (Object.keys(diamonds).length + 1))
     } else {
-      updateCapsuleState(newPlatform, id)
+      updateCapsuleState(newPlatform, id + (Object.keys(capsules).length + 1))
     }
   }
   //list of components initially, will always have a door, world, and avatar, avatar not implemented yet

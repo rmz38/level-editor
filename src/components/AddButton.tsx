@@ -2,7 +2,7 @@ import { UncontrolledCollapse, Col, Button, Form, FormGroup, Label, Input, FormT
 
 import React, { createRef, Fragment, useState } from 'react'
 import { Collapse } from 'react-collapse';
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { UncontrolledDropdown, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
 // ES6
 
@@ -21,6 +21,23 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
   const [isCheckedEnemy, setIsCheckedEnemy] = useState(false);
   const [isCheckedPlatform, setIsCheckedPlatform] = useState(false);
 
+  let openTurret = () => {
+    setIsCheckedEnemy(false);
+    setIsCheckedTurret(true);
+    setIsCheckedPlatform(false);
+  }
+  let openEnemy = () => {
+    setIsCheckedEnemy(true);
+    setIsCheckedTurret(false);
+    setIsCheckedPlatform(false);
+  }
+  let openPlatform = () => {
+    setIsCheckedEnemy(false);
+    setIsCheckedTurret(false);
+    setIsCheckedPlatform(true);
+  }
+  
+  //turret states 
   let posStateTurret= [17,9]
   let shrinkStateTurret = [13,6]
   let textureStateTurret = 'turret'
@@ -29,6 +46,26 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
   let entitytypeStateTurret = 'present'
   let cooldownStateTurret = 360
   let directionStateTurret = [-3, 0]
+
+  //enemy states
+  let posStateEnemy= [17, 9]
+  let shrinkStateEnemy = [0.0168, 0.021375]
+  let textureStateEnemy = 'enemypresent'
+  let densityStateEnemy = 1.0
+  let bodytypeStateEnemy = 'dynamic'
+  let entitytypeStateEnemy = 'present'
+  let cooldownStateEnemy = 120
+
+  //platform states 
+  let platformType = 'round'
+  let nameStatePlatform = 'present_round'
+  let posStatePlatform= [17, 9]
+  let bodytypeStatePlatform = 'static'
+  let densityStatePlatform = 0.0
+  let frictionStatePlatform = .6
+  let restitutionStatePlatform = .1
+  let textureStatePlatform = 'present_round'
+  let spaceStatePlatform = 1
 
   let newTurret = () => {
     let newKey = 'turret' + (Object.keys(turrets).length + 1)
@@ -44,31 +81,69 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
     }
     updateTurret(newTurret, newKey)
   }
+  let newEnemy = () => {
+    let newKey = 'enemy' + (Object.keys(turrets).length + 1)
+    let newEnemy = {
+      pos:posStateEnemy,
+      shrink:shrinkStateEnemy,
+      texture:textureStateEnemy,
+      density:densityStateEnemy,
+      bodytype:bodytypeStateEnemy,
+      entitytype:entitytypeStateEnemy,
+      cooldown:cooldownStateEnemy,
+    }
+    updateEnemy(newEnemy, newKey)
+  }
+  let newPlatform = (type:string) => {
+    let time = 'bugHappened'
+    let newKey = 'bugHappened'
+    if (spaceStatePlatform == 1 || spaceStatePlatform == 3){
+      time = 'present'
+    } else if(spaceStatePlatform == 2){
+      time = 'past'
+    } else {
+      time = 'bugNotPastPres'
+    }
+
+    newKey = time + type
+    let newPlatform = {
+      name:nameStatePlatform,
+      pos:posStatePlatform,
+      bodytype:bodytypeStatePlatform,
+      density:densityStatePlatform,
+      friction:frictionStatePlatform,
+      resitution:restitutionStatePlatform,
+      texture:textureStatePlatform,
+      space:spaceStatePlatform
+    }
+    updatePlatform(newPlatform, newKey, type)
+  }
 
   let itemTypeStyle = {
     marginLeft: '5px'
   };
   return (
     <div >
-      <Button color="info" id="toggler" style={{ marginBottom: '2px' }}>Add</Button>
+      <Button color="secondary" id="toggler" style={{ backgroundColor: '#fa511e', marginBottom: '2px' }}>Add</Button>
       <UncontrolledCollapse toggler = "#toggler">
         <Form inline>
           <FormGroup >
             <Label check inline style = {itemTypeStyle}>
-              <Input onChange = {() => {setIsCheckedTurret(!isCheckedTurret)}} type="radio" name="itemType" id="itemTypeTurret" style = {{marginLeft: '8px'}}defaultChecked /> Turret {' '} 
+              <Input onChange = {() => {openTurret()}} type="radio" name="itemType" id="itemTypeTurret" style = {{marginLeft: '8px'}}defaultChecked /> Turret {' '} 
             </Label>
           </FormGroup>
           <FormGroup >
             <Label check inline style = {itemTypeStyle}>
-              <Input onChange = {() => {setIsCheckedEnemy(!isCheckedEnemy)}} type="radio" name="itemType" id="itemTypeEnemy" /> Enemy {' '}
+              <Input onChange = {() => {openEnemy()}} type="radio" name="itemType" id="itemTypeEnemy" /> Enemy {' '}
             </Label>
           </FormGroup>
           <FormGroup >
             <Label check inline style = {itemTypeStyle}>
-              <Input onChange = {() => {setIsCheckedPlatform(!isCheckedPlatform)}} type="radio" name="itemType"  id="itemTypePlatform" /> Platform {' '} 
+              <Input onChange = {() => {openPlatform()}} type="radio" name="itemType"  id="itemTypePlatform" /> Platform {' '} 
             </Label>
           </FormGroup>  
         </Form>
+        {/* turret inputs */}
         <Collapse isOpened = {isCheckedTurret}>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
@@ -121,8 +196,128 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
             <Input onBlur={(e) =>{directionStateTurret = [+e.target.value, directionStateTurret[1]];  }} defaultValue = {directionStateTurret[0]}/>
             <Input onBlur={(e) =>{directionStateTurret = [directionStateTurret[0], +e.target.value];  }} defaultValue = {directionStateTurret[1]}/>
         </InputGroup>
-        </Collapse>
         <Button onClick = {() => {newTurret()}}>Submit</Button>
+        </Collapse>
+        {/* end turret inputs */}
+        {/* begin enemy inputs */}
+        <Collapse isOpened = {isCheckedEnemy}>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Position</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{posStateEnemy =[+e.target.value,posStateEnemy[1]];   }} defaultValue = {posStateEnemy[0]}/>
+            <Input onBlur={(e) =>{posStateEnemy =[posStateEnemy[0],+e.target.value];   }} defaultValue = {posStateEnemy[1]}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Shrink</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{shrinkStateEnemy =[+e.target.value,shrinkStateEnemy[1]];   }} defaultValue = {shrinkStateEnemy[0]}/>
+            <Input onBlur={(e) =>{shrinkStateEnemy =[shrinkStateEnemy[0],+e.target.value];   }} defaultValue = {shrinkStateEnemy[1]}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Texture</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{textureStateEnemy = e.target.value;   }} defaultValue = {textureStateEnemy}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Density</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{densityStateEnemy = +e.target.value;   }} defaultValue = {densityStateEnemy}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Body Type</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{bodytypeStateEnemy = e.target.value;   }} defaultValue = {bodytypeStateEnemy}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Entity Type</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{entitytypeStateEnemy = e.target.value;   }} defaultValue = {entitytypeStateEnemy}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Cooldown</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{cooldownStateEnemy = +e.target.value;}} defaultValue = {cooldownStateEnemy}/>
+        </InputGroup>
+        <Button onClick = {() => {newEnemy()}}>Submit</Button>
+        </Collapse>
+        {/* end enemy inputs */}
+        {/* begin platform inputs */}
+        <Collapse isOpened = {isCheckedPlatform}>
+        <Form inline>
+          <FormGroup >
+            <Label check inline style = {itemTypeStyle}>
+              <Input onChange = {(e) => {platformType = 'capsule';}} type="radio" name="platformType" id="capsule" style = {{marginLeft: '8px'}} defaultChecked /> Capsule {' '} 
+            </Label>
+          </FormGroup>
+          <FormGroup >
+            <Label check inline style = {itemTypeStyle}>
+              <Input onChange = {(e) => {platformType = 'diamond';}} type="radio" name="platformType" id="diamond" /> Diamond {' '}
+            </Label>
+          </FormGroup>
+          <FormGroup >
+            <Label check inline style = {itemTypeStyle}>
+              <Input onChange = {(e) => {platformType = 'round';}} type="radio" name="platformType"  id="round" /> Round {' '} 
+            </Label>
+          </FormGroup>  
+        </Form>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Name</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{nameStatePlatform = e.target.value;   }} defaultValue = {nameStatePlatform}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Position</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{posStatePlatform =[+e.target.value,posStatePlatform[1]];   }} defaultValue = {posStatePlatform[0]}/>
+            <Input onBlur={(e) =>{posStatePlatform =[posStatePlatform[0],+e.target.value];   }} defaultValue = {posStatePlatform[1]}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Texture</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{textureStatePlatform = e.target.value;   }} defaultValue = {textureStatePlatform}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Density</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{densityStatePlatform = +e.target.value;   }} defaultValue = {densityStatePlatform}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Body Type</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{bodytypeStatePlatform = e.target.value;   }} defaultValue = {bodytypeStatePlatform}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Friction</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{frictionStatePlatform = +e.target.value;   }} defaultValue = {frictionStatePlatform}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Restitution</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{restitutionStatePlatform = +e.target.value;   }} defaultValue = {restitutionStatePlatform}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>Space</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{spaceStatePlatform = +e.target.value;   }} defaultValue = {spaceStatePlatform}/>
+        </InputGroup>
+        <Button onClick = {() => {newPlatform(platformType)}}>Submit</Button>
+        </Collapse>
       </UncontrolledCollapse>
     </div>
   );
