@@ -11,6 +11,7 @@ import Capsule from './Capsule';
 import Diamond from './Diamond';
 import Round from './Round';
 import Enemy from './Enemy';
+import AddButton from './AddButton';
 
 interface Props {
     gameObjectsInput: any;
@@ -89,15 +90,18 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
   let updateTurretState = (newTurr:any, id:string) => {
     let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
     let newTurrets = turrets;
+    let add = true;
     if( newTurr == 'delete'){
       delete newTurrets[id]
     }else {
       for (let [key, value] of Object.entries(turrets)) {
         if(key == id){
           newTurrets[key] = newTurr;
+          add = false;
           break;
         }
       }
+      if(add){newTurrets[id] = newTurr}
     }
     let newGameObjects = {
       world:world,
@@ -194,15 +198,18 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
   let updateEnemyState = (newEnemy:any, id:string) => {
     let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
     let newEnemies = enemies;
+    let add = true;
     if (newEnemy == 'delete'){
       delete newEnemies[id]
     }else{
       for (let [key, value] of Object.entries(rounds)) {
         if(key == id){
           newEnemies[key] = newEnemy;
+          add = false;
           break;
         }
       }
+      if(add){newEnemies[id] = newEnemy}
     }
     let newGameObjects = {
       world:world,
@@ -217,8 +224,19 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
     update(newGameObjects)
     setGameObjects(newGameObjects)
   }
+  let addPlatform = (newPlatform:any, id:string, type:string) => {
+    let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
+    if( type.includes('round')){
+      updateRoundState(newPlatform, id)
+    } else if (type.includes('diamond')){
+      updateDiamondState(newPlatform, id)
+    } else {
+      updateCapsuleState(newPlatform, id)
+    }
+  }
   //list of components initially, will always have a door, world, and avatar, avatar not implemented yet
   const [componentList, setComponentList] = useState<any>([
+    <AddButton key = {'add'} gameObjects ={gameObjects} updateEnemy = {updateEnemyState} updateTurret = {updateTurretState} updatePlatform ={addPlatform}></AddButton>,
     <World key = {JSON.stringify(gameObjects) + " world"} info = {gameObjects.world} update = {updateWorldState} selected = {selected}></World>,
     <Door key = {JSON.stringify(gameObjects) + " door"} info = {gameObjects.door} update = {updateDoorState} selected = {selected}></Door>,
     <Avatar key = {JSON.stringify(gameObjects) + " avatar"} info = {gameObjects.avatar} update = {updateAvatarState} selected = {selected}></Avatar>,

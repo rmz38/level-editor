@@ -70,7 +70,7 @@ const World : React.FC<Props> = ({info, update,selected}) => {
 
   return (
     <div >
-      <Button color="primary" onClick = {toggle} id="world" style={{ marginBottom: '1rem' }}>World</Button>
+      <Button color="primary" onClick = {toggle} id="world" style={{ marginBottom: '2px' }}>World</Button>
       <Collapse isOpened={isOpen}>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
