@@ -58,13 +58,13 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
 
   //platform states 
   let platformType = 'round'
-  let nameStatePlatform = 'present_round'
+  let nameStatePlatform = 'present_capsule'
   let posStatePlatform= [17, 9]
   let bodytypeStatePlatform = 'static'
   let densityStatePlatform = 0.0
   let frictionStatePlatform = .6
   let restitutionStatePlatform = .1
-  let textureStatePlatform = 'present_round'
+  let textureStatePlatform = 'present_capsule'
   let spaceStatePlatform = 1
 
   let newTurret = () => {
