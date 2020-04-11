@@ -1,0 +1,36 @@
+  if (isCheckedTurret) {
+    let {pos, shrink, texture, entitytype, cooldown, direction, bodytype, density} = {
+      pos: [17,9],
+      shrink: [0.0168, 0.021375],
+      texture: "turret",
+      entitytype: "present",
+      cooldown: 360,
+      direction: [-3.0, 0.0],
+      bodytype: "static",
+      density: 1.0
+    }
+  } else if(isCheckedEnemy){
+    let {pos, shrink, texture, entitytype, cooldown, bodytype, density} = {
+      pos: [13.0, 6.0],
+      shrink: [0.0168, 0.021375],
+      texture: "enemypresent",
+      entitytype: "present",
+      cooldown: 120,
+      bodytype: "dynamic",
+      density: 1.0
+    }
+  } else if(isCheckedPlatform){
+    let {name, pos, friction, restitution, texture, space, bodytype, density} = {
+      name: "present_diamond",
+      pos: [
+        1.0,
+        2.0
+      ],
+      bodytype: "static",
+      density: 0.0,
+      friction: 0.6,
+      restitution: 0.1,
+      texture: "present_diamond",
+      space: 1
+    }
+  }
