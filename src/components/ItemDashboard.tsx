@@ -256,13 +256,13 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
     components.push(<Turret key = {key} info = {value} id = {key} update = {updateTurretState} selected = {selected}></Turret>);
   }
   for (let [key, value] of Object.entries(gameObjects.capsules)) {
-    components.push(<Capsule key = {key} info = {value} id = {key} update = {updateCapsuleState} selected = {selected}></Capsule>);
+    components.push(<Capsule key = {key + Math.random()} info = {value} id = {key} update = {updateCapsuleState} selected = {selected}></Capsule>);
   }
   for (let [key, value] of Object.entries(gameObjects.diamonds)) {
-    components.push(<Diamond key = {key} info = {value} id = {key} update = {updateDiamondState} selected = {selected}></Diamond>);
+    components.push(<Diamond key = {key + Math.random()} info = {value} id = {key} update = {updateDiamondState} selected = {selected}></Diamond>);
   }
   for (let [key, value] of Object.entries(gameObjects.rounds)) {
-    components.push(<Round key = {key} info = {value} id = {key} update = {updateRoundState} selected = {selected}></Round>);
+    components.push(<Round key = {key + Math.random()} info = {value} id = {key} update = {updateRoundState} selected = {selected}></Round>);
   }
   for (let [key, value] of Object.entries(gameObjects.enemies)) {
     components.push(<Enemy key = {key} info = {value} id = {key} update = {updateEnemyState} selected = {selected}></Enemy>);
