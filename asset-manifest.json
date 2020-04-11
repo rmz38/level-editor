@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/level-editor/static/css/main.5f361e03.chunk.css",
+    "main.js": "/level-editor/static/js/main.0165ffdf.chunk.js",
+    "main.js.map": "/level-editor/static/js/main.0165ffdf.chunk.js.map",
+    "runtime-main.js": "/level-editor/static/js/runtime-main.d5d54acc.js",
+    "runtime-main.js.map": "/level-editor/static/js/runtime-main.d5d54acc.js.map",
+    "static/css/2.de424728.chunk.css": "/level-editor/static/css/2.de424728.chunk.css",
+    "static/js/2.f85643f6.chunk.js": "/level-editor/static/js/2.f85643f6.chunk.js",
+    "static/js/2.f85643f6.chunk.js.map": "/level-editor/static/js/2.f85643f6.chunk.js.map",
+    "index.html": "/level-editor/index.html",
+    "precache-manifest.a60ab20362f3d1a83198557ae68a6b11.js": "/level-editor/precache-manifest.a60ab20362f3d1a83198557ae68a6b11.js",
+    "service-worker.js": "/level-editor/service-worker.js",
+    "static/css/2.de424728.chunk.css.map": "/level-editor/static/css/2.de424728.chunk.css.map",
+    "static/css/main.5f361e03.chunk.css.map": "/level-editor/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.f85643f6.chunk.js.LICENSE.txt": "/level-editor/static/js/2.f85643f6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d5d54acc.js",
+    "static/css/2.de424728.chunk.css",
+    "static/js/2.f85643f6.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.0165ffdf.chunk.js"
+  ]
+}
