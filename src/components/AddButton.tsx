@@ -12,14 +12,18 @@ interface Props {
   updateTurret: (data:any, id:string) => void
   updateEnemy: (data:any, id:string) => void
   updatePlatform: (data:any, id:string, type:string) => void
+  updateNumPlat: (n:number) => void
+  numPlat:number
   // selected: (compName:string, open:boolean) => void
 }
 
-const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,updatePlatform}) => {
+const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,updatePlatform, numPlat, updateNumPlat}) => {
   let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
   const [isCheckedTurret, setIsCheckedTurret] = useState(true);
   const [isCheckedEnemy, setIsCheckedEnemy] = useState(false);
   const [isCheckedPlatform, setIsCheckedPlatform] = useState(false);
+  // const [numPlatforms, setNumPlatforms] =useState(numPlat)
+  const [init, setInit] = useState(true);
 
   let openTurret = () => {
     setIsCheckedEnemy(false);
@@ -39,7 +43,7 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
   
   //turret states 
   let posStateTurret= [17,9]
-  let shrinkStateTurret = [13,6]
+  let shrinkStateTurret = [0.0168, 0.021375]
   let textureStateTurret = 'turret'
   let densityStateTurret = 1.0
   let bodytypeStateTurret = 'static'
@@ -57,7 +61,7 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
   let cooldownStateEnemy = 120
 
   //platform states 
-  let platformType = 'round'
+  let platformType = 'capsule'
   let nameStatePlatform = 'present_capsule'
   let posStatePlatform= [17, 9]
   let bodytypeStatePlatform = 'static'
@@ -98,9 +102,9 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
     let time = 'bugHappened'
     let newKey = 'bugHappened'
     if (spaceStatePlatform == 1 || spaceStatePlatform == 3){
-      time = 'present'
+      time = 'present' + numPlat
     } else if(spaceStatePlatform == 2){
-      time = 'past'
+      time = 'past' + numPlat
     } else {
       time = 'bugNotPastPres'
     }
@@ -112,10 +116,11 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
       bodytype:bodytypeStatePlatform,
       density:densityStatePlatform,
       friction:frictionStatePlatform,
-      resitution:restitutionStatePlatform,
+      restitution:restitutionStatePlatform,
       texture:textureStatePlatform,
       space:spaceStatePlatform
     }
+    updateNumPlat(numPlat + 1)
     updatePlatform(newPlatform, newKey, platformType)
   }
 

@@ -15,8 +15,10 @@ import AddButton from './AddButton';
 
 interface Props {
     gameObjectsInput: any;
-    update: (data:any) => void;
-    selected: (id:string, open:boolean) => void;
+    update: (data:any) => void
+    selected: (id:string, open:boolean) => void
+    numPlat: number
+    updateNumPlatApp: (n:number) => void
 }
 
 // interface GameObjectType{
@@ -36,7 +38,7 @@ const windowStyling : CSS.Properties= {
 //   return <Turret pos = {p} updatefn = {updateTurret}></Turret>;
 // }
 
-const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) => {
+const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, numPlat, updateNumPlatApp}) => {
   const [gameObjects, setGameObjects] = useState<any>(JSON.parse(JSON.stringify(gameObjectsInput)));
   let {avatar, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
   //updates in App the state assuming world was changed
@@ -248,9 +250,12 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
       updateCapsuleState(newPlatform, id  + (Object.keys(capsules).length + 1))
     }
   }
+  let updateNumPlat = (n:number) => {
+    updateNumPlatApp(n);
+  }
   //list of components initially, will always have a door, world, and avatar, avatar not implemented yet
   const [componentList, setComponentList] = useState<any>([
-    <AddButton key = {'add'} gameObjects ={gameObjects} updateEnemy = {updateEnemyState} updateTurret = {updateTurretState} updatePlatform ={addPlatform}></AddButton>,
+    <AddButton updateNumPlat = {updateNumPlat} numPlat = {numPlat} key = {'add'} gameObjects ={gameObjects} updateEnemy = {updateEnemyState} updateTurret = {updateTurretState} updatePlatform ={addPlatform}></AddButton>,
     <World key = {JSON.stringify(gameObjects) + " world"} info = {gameObjects.world} update = {updateWorldState} selected = {selected}></World>,
     <Door key = {JSON.stringify(gameObjects) + " door"} info = {gameObjects.door} update = {updateDoorState} selected = {selected}></Door>,
     <Avatar key = {JSON.stringify(gameObjects) + " avatar"} info = {gameObjects.avatar} update = {updateAvatarState} selected = {selected}></Avatar>,

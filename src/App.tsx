@@ -238,19 +238,23 @@ const App : React.FC = ({}) => {
   const [rounds, setRounds] = useState(levelInit.rounds);
   const [enemies, setEnemies] = useState(levelInit.enemies);
   const [gameObjects, setGameObjects] = useState<any>(levelInit); //represents json, init with levelinit
+  const [numPlat, setNumPlat] = useState(9);
   const [objectPostitions, setOp] = useState(new Object()) // not used yet
 
 
   let editorObjects = useState([{id:'world', selected: false}]); //not used yet
 
   let updateState = (newState:any) => { // updates state
-    let {world, platforms, avatar, door, turrets} = newState;
-    setWorld(newState.world);
-    setAvatar(newState.avatar);
-    setDoor(newState.door);
-    setTurrets(newState.turrets);
+    let {world, capsules, diamonds, rounds, enemies, avatar, door, turrets} = newState;
+    setWorld(world);
+    setAvatar(avatar);
+    setDoor(door);
+    setTurrets(turrets);
+    setEnemies(enemies)
+    setCapsules(capsules)
+    setDiamonds(diamonds)
+    setRounds(rounds)
     setGameObjects(newState);
-    console.log("App avatar", avatar);
   }
   let selectComponent = (id:string, open:boolean) => { //not used for anything yet
     editorObjects.map(
@@ -262,8 +266,11 @@ const App : React.FC = ({}) => {
         }
     })
   }
+  let updateNumPlat = (n:number) => {
+    setNumPlat(n);
+  }
   //used for debugging and formatting json during download
-
+  
   // gravity: -14.7,
   // bounds: [32.0,18.0],
   // "present_background": "present_background",
@@ -308,7 +315,7 @@ const App : React.FC = ({}) => {
       <div style = {containerStyling}>
         <LevelWindow key = {JSON.stringify(gameObjects) + "lw"} backgroundPastPath = {world.backgroundPast} backgroundPresPath = {world.backgroundPres} 
           gameObjectState = {gameObjects} updateState = {updateState}></LevelWindow>
-        <ItemDashboard key = {JSON.stringify(gameObjects)} gameObjectsInput={gameObjects} update={updateState} selected={selectComponent}>
+        <ItemDashboard updateNumPlatApp = {updateNumPlat} numPlat = {numPlat} key = {JSON.stringify(gameObjects)} gameObjectsInput={gameObjects} update={updateState} selected={selectComponent}>
           </ItemDashboard>
       </div>
     </div>
