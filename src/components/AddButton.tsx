@@ -68,7 +68,7 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
   let spaceStatePlatform = 1
 
   let newTurret = () => {
-    let newKey = 'turret#' + (Object.keys(turrets).length + 1)
+    let newKey = 'turret' + (Object.keys(turrets).length + 1)
     let newTurret = {
       pos:posStateTurret,
       shrink:shrinkStateTurret,
@@ -82,7 +82,7 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
     updateTurret(newTurret, newKey)
   }
   let newEnemy = () => {
-    let newKey = 'enemy#' + (Object.keys(enemies).length + 1)
+    let newKey = 'enemy' + (Object.keys(enemies).length + 1)
     let newEnemy = {
       pos:posStateEnemy,
       shrink:shrinkStateEnemy,
