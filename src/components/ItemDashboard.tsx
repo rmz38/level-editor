@@ -240,12 +240,12 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
   let addPlatform = (newPlatform:any, id:string, type:string) => {
     let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
     if( type == 'round'){
-      updateRoundState(newPlatform, id + "#" +(Object.keys(rounds).length + 1))
+      updateRoundState(newPlatform, id +(Object.keys(rounds).length + 1))
     } else if (type == 'diamond'){
       console.log("addPLatform", id + (Object.keys(diamonds).length + 1))
-      updateDiamondState(newPlatform, id + "#" + (Object.keys(diamonds).length + 1))
+      updateDiamondState(newPlatform, id  + (Object.keys(diamonds).length + 1))
     } else {
-      updateCapsuleState(newPlatform, id + "#" + (Object.keys(capsules).length + 1))
+      updateCapsuleState(newPlatform, id  + (Object.keys(capsules).length + 1))
     }
   }
   //list of components initially, will always have a door, world, and avatar, avatar not implemented yet
