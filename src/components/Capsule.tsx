@@ -59,7 +59,6 @@ const Capsule : React.FC<Props> = ({info, update, selected, id}) => {
     setIsOpen(!isOpen);
     selected('capsule', isOpen);
   };
-  console.log("capsule" ,info);
   return (
     <div >
       <ButtonGroup>

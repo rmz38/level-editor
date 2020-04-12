@@ -150,17 +150,20 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
     let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
     let newDiamonds = diamonds;
     let add = true;
-    if(newDia = 'delete'){
+    if(newDia == 'delete'){
       delete newDiamonds[id]
     } else {
       for (let [key, value] of Object.entries(diamonds)) {
         if(key == id){
           newDiamonds[key] = newDia;
           add = false;
+          console.log("newDiaID", id)
           break;
         }
       }
-      if(add){newDiamonds[id] = newDia}
+      if(add){
+        newDiamonds[id] = newDia
+      }
     }
     let newGameObjects = {
       world:world,
@@ -172,6 +175,7 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
       rounds:rounds,
       enemies:enemies,
     }
+    console.log("debugging new diamond platform", newGameObjects)
     update(newGameObjects)
     setGameObjects(newGameObjects)
   }
@@ -236,11 +240,12 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected}) =
   let addPlatform = (newPlatform:any, id:string, type:string) => {
     let {avatar,world, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
     if( type == 'round'){
-      updateRoundState(newPlatform, id + (Object.keys(rounds).length + 1))
+      updateRoundState(newPlatform, id + "#" +(Object.keys(rounds).length + 1))
     } else if (type == 'diamond'){
-      updateDiamondState(newPlatform, id + (Object.keys(diamonds).length + 1))
+      console.log("addPLatform", id + (Object.keys(diamonds).length + 1))
+      updateDiamondState(newPlatform, id + "#" + (Object.keys(diamonds).length + 1))
     } else {
-      updateCapsuleState(newPlatform, id + (Object.keys(capsules).length + 1))
+      updateCapsuleState(newPlatform, id + "#" + (Object.keys(capsules).length + 1))
     }
   }
   //list of components initially, will always have a door, world, and avatar, avatar not implemented yet
