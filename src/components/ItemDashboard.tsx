@@ -261,25 +261,25 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
   const [componentList, setComponentList] = useState<any>([
     <AddButton updateNumPlat = {updateNumPlat} numPlat = {numPlat} key = {'add'} gameObjects ={gameObjects} updateEnemy = {updateEnemyState} updateTurret = {updateTurretState} updatePlatform ={addPlatform}></AddButton>,
     <World key = {JSON.stringify(gameObjects) + " world"} info = {gameObjects.world} update = {updateWorldState} selected = {selected}></World>,
-    <Door key = {JSON.stringify(gameObjects) + " door"} info = {gameObjects.door} update = {updateDoorState} selected = {selected}></Door>,
-    <Avatar key = {JSON.stringify(gameObjects) + " avatar"} info = {gameObjects.avatar} update = {updateAvatarState} selected = {selected}></Avatar>,
+    <Door world = {gameObjects.world} key = {JSON.stringify(gameObjects) + " door"} info = {gameObjects.door} update = {updateDoorState} selected = {selected}></Door>,
+    <Avatar world = {gameObjects.world} key = {JSON.stringify(gameObjects) + " avatar"} info = {gameObjects.avatar} update = {updateAvatarState} selected = {selected}></Avatar>,
     ]
     )
   let components = componentList;
   for (let [key, value] of Object.entries(gameObjects.turrets)) {
-    components.push(<Turret key = {key} info = {value} id = {key} update = {updateTurretState} selected = {selected}></Turret>);
+    components.push(<Turret world = {gameObjects.world} key = {key} info = {value} id = {key} update = {updateTurretState} selected = {selected}></Turret>);
   }
   for (let [key, value] of Object.entries(gameObjects.capsules)) {
-    components.push(<Capsule key = {key + Math.random()} info = {value} id = {key} update = {updateCapsuleState} selected = {selected}></Capsule>);
+    components.push(<Capsule world = {gameObjects.world} key = {key + Math.random()} info = {value} id = {key} update = {updateCapsuleState} selected = {selected}></Capsule>);
   }
   for (let [key, value] of Object.entries(gameObjects.diamonds)) {
-    components.push(<Diamond key = {key + Math.random()} info = {value} id = {key} update = {updateDiamondState} selected = {selected}></Diamond>);
+    components.push(<Diamond world = {gameObjects.world} key = {key + Math.random()} info = {value} id = {key} update = {updateDiamondState} selected = {selected}></Diamond>);
   }
   for (let [key, value] of Object.entries(gameObjects.rounds)) {
-    components.push(<Round key = {key + Math.random()} info = {value} id = {key} update = {updateRoundState} selected = {selected}></Round>);
+    components.push(<Round world = {gameObjects.world} key = {key + Math.random()} info = {value} id = {key} update = {updateRoundState} selected = {selected}></Round>);
   }
   for (let [key, value] of Object.entries(gameObjects.enemies)) {
-    components.push(<Enemy key = {key} info = {value} id = {key} update = {updateEnemyState} selected = {selected}></Enemy>);
+    components.push(<Enemy world = {gameObjects.world} key = {key} info = {value} id = {key} update = {updateEnemyState} selected = {selected}></Enemy>);
   }
   // <Turret key = {JSON.stringify(gameObjects) + 'turret'} info = {gameObjects.turrets.turret1} id = 'turret1' update = {updateTurretState} selected = {selected}></Turret>
   return (

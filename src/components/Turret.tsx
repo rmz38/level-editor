@@ -11,6 +11,7 @@ interface Props {
   id: string
   update: (data:any, i:string) => void
   selected: (compName:string, open:boolean) => void
+  world:any
   // isMenuOpenFn: (b:boolean) => boolean
   // isMenuOpen?: boolean
 }
@@ -25,7 +26,7 @@ interface Props {
 //     "density": 1.0
 //   }
 
-const Turret : React.FC<Props> = ({info, update, selected, id}) => {
+const Turret : React.FC<Props> = ({info, update, selected, id, world}) => {
 
   //update is a prop for updating in App the state, passes through ItemDashboard first
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +40,10 @@ const Turret : React.FC<Props> = ({info, update, selected, id}) => {
   let entitytypeState = entitytype
   let cooldownState = cooldown
   let directionState = direction
-
+  let gameCoordToPx = (gc:Array<number>) => {
+    return [gc[0] * 1000 / world.bounds[0], gc[1] * 600 / world.bounds[1]]
+  }
+  let convertedPos = gameCoordToPx(pos)
   let updatedState = () => {
       return {
           pos: posState,
@@ -114,6 +118,7 @@ const Turret : React.FC<Props> = ({info, update, selected, id}) => {
             <Input onBlur={(e) =>{directionState = [+e.target.value, direction[1]]; update(updatedState(), id)}} defaultValue = {direction[0]}/>
             <Input onBlur={(e) =>{directionState = [direction[0], +e.target.value]; update(updatedState(), id)}} defaultValue = {direction[1]}/>
         </InputGroup>
+        <div style = {{display: isOpen ? 'block': 'none',height:'60px', width: '60px', backgroundColor:'yellow', opacity: '50%', position:'absolute', left:convertedPos[0] - 20 , bottom:convertedPos[1]}}></div>
       </Collapse>
     </div>
   );

@@ -10,6 +10,7 @@ interface Props {
   info:any
   update: (data:any) => void
   selected: (compName:string, open:boolean) => void
+  world:any
 }
 
 // "door": {
@@ -29,7 +30,7 @@ interface Props {
 //   "sensor": true,
 //   "nextlevel": 0,
 //   "space": 3
-const Door : React.FC<Props> = ({info, update,selected}) => {
+const Door : React.FC<Props> = ({info, update,selected, world}) => {
   const{ pos, size, bodytype, density, friction, restitution, texture, sensor, nextlevel, space} = info
   const [isOpen, setIsOpen] = useState(false);
   console.log(sensor);
@@ -43,7 +44,10 @@ const Door : React.FC<Props> = ({info, update,selected}) => {
   let sensorState = sensor
   let nextlevelState = nextlevel
   let spaceState = space
-
+  let gameCoordToPx = (gc:Array<number>) => {
+    return [gc[0] * 1000 / world.bounds[0], gc[1] * 600 / world.bounds[1]]
+  }
+  let convertedPos = gameCoordToPx(pos)
   let updatedState = () => {
     return {
       pos:posState,
@@ -130,6 +134,7 @@ const Door : React.FC<Props> = ({info, update,selected}) => {
           </InputGroupAddon>
           <Input onBlur={e =>{spaceState = e.target.value; update(updatedState())}} default Value = {space}/>
         </InputGroup>
+        <div style = {{display: isOpen ? 'block': 'none',height:'90px', width: '90px', backgroundColor:'yellow', opacity: '50%', position:'absolute', left:convertedPos[0] - 40 + 'px', bottom:convertedPos[1] - 40 + 'px'}}></div>
       </Collapse>
     </div>
   );

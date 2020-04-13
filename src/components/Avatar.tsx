@@ -10,6 +10,7 @@ interface Props {
   info:any
   update: (data:any) => void
   selected: (compName:string, open:boolean) => void
+  world: any
   // isMenuOpenFn: (b:boolean) => boolean
   // isMenuOpen?: boolean
 }
@@ -23,7 +24,7 @@ interface Props {
   //   "avatardashing": "avatardashing",
   //   "avatarfalling": "avatarfalling"
 
-const Avatar : React.FC<Props> = ({info, update,selected}) => {
+const Avatar : React.FC<Props> = ({info, update,selected, world}) => {
 
   //update is a prop for updating in App the state, passes through ItemDashboard first
   const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +39,10 @@ const Avatar : React.FC<Props> = ({info, update,selected}) => {
   let avatarcrouchingState = avatarcrouching
   let avatardashingState = avatardashing
   let avatarfallingState = avatarfalling
-
+  let gameCoordToPx = (gc:Array<number>) => {
+    return [gc[0] * 1000 / world.bounds[0], gc[1] * 600 / world.bounds[1]]
+  }
+  let convertedPos = gameCoordToPx(pos)
   let updatedState = () => {
       return {
           pos: posState,
@@ -123,6 +127,7 @@ const Avatar : React.FC<Props> = ({info, update,selected}) => {
           </InputGroupAddon>
             <Input onBlur={(e) =>{avatarfallingState = e.target.value; update(updatedState())}} defaultValue = {avatarfalling}/>
         </InputGroup>
+        <div style = {{display: isOpen ? 'block': 'none',height:'60px', width: '60px', backgroundColor:'yellow', opacity: '50%', position:'absolute', left:convertedPos[0] - 30, bottom:convertedPos[1]}}></div>
       </Collapse>
     </div>
   );

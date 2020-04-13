@@ -11,6 +11,7 @@ interface Props {
   id: string
   update: (data:any, i:string) => void
   selected: (compName:string, open:boolean) => void
+  world:any
   // isMenuOpenFn: (b:boolean) => boolean
   // isMenuOpen?: boolean
 }
@@ -23,7 +24,7 @@ interface Props {
 //     "bodytype": "dynamic",
 //     "density": 1.0
 //   },
-const Enemy : React.FC<Props> = ({info, update, selected, id}) => {
+const Enemy : React.FC<Props> = ({info, update, selected, id, world}) => {
 
   //update is a prop for updating in App the state, passes through ItemDashboard first
   const [isOpen, setIsOpen] = useState(false);
@@ -36,6 +37,10 @@ const Enemy : React.FC<Props> = ({info, update, selected, id}) => {
   let bodytypeState = bodytype
   let entitytypeState = entitytype
   let cooldownState = cooldown
+  let gameCoordToPx = (gc:Array<number>) => {
+    return [gc[0] * 1000 / world.bounds[0], gc[1] * 600 / world.bounds[1]]
+  }
+  let convertedPos = gameCoordToPx(pos)
 
   let updatedState = () => {
       return {
@@ -103,6 +108,7 @@ const Enemy : React.FC<Props> = ({info, update, selected, id}) => {
           </InputGroupAddon>
             <Input onBlur={(e) =>{cooldownState = +e.target.value; update(updatedState(), id)}} defaultValue = {cooldown}/>
         </InputGroup>
+        <div style = {{display: isOpen ? 'block': 'none',height:'60px', width: '60px', backgroundColor:'yellow', opacity: '50%', position:'absolute', left:convertedPos[0] - 30, bottom:convertedPos[1]}}></div>
       </Collapse>
     </div>
   );
