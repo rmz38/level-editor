@@ -65,7 +65,7 @@ const Diamond : React.FC<Props> = ({info, update, selected, id, world}) => {
   };
   return (
     <div >
-      <ButtonGroup>
+      <ButtonGroup style = {{width: '100%'}}>
         <Button color="primary" onClick = {toggle} id="world" style={{ backgroundColor: '#6993f5', marginBottom: '1rem' }}>{id}</Button>
         <Button color="danger" onClick = {() => update('delete', id)} id="delete" style={{ marginBottom: '1rem' }}>Delete</Button>
       </ButtonGroup>

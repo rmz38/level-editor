@@ -12,6 +12,7 @@ import Diamond from './Diamond';
 import Round from './Round';
 import Enemy from './Enemy';
 import AddButton from './AddButton';
+import { uuid } from 'uuidv4';
 
 interface Props {
     gameObjectsInput: any;
