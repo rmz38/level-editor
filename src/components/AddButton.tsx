@@ -97,7 +97,7 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
     let newEnemy = {
       pos:posStateEnemy,
       shrink:shrinkStateEnemy,
-      texture:textureStateEnemy,
+      texture:'enemy' + entitytypeStateEnemy,
       density:densityStateEnemy,
       bodytype:bodytypeStateEnemy,
       entitytype:entitytypeStateEnemy,
@@ -108,9 +108,9 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
   let newPlatform = (type:string) => {
     let time = 'bugHappened'
     let newKey = 'bugHappened'
-    if (spaceStatePlatform == 1 || spaceStatePlatform == 3){
+    if (spaceStatePlatform === 1 || spaceStatePlatform === 3){
       time = 'present'
-    } else if(spaceStatePlatform == 2){
+    } else if(spaceStatePlatform === 2){
       time = 'past'
     } else {
       time = 'bugNotPastPres'
@@ -118,13 +118,13 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
 
     newKey = time + type
     let newPlatform = {
-      name:nameStatePlatform,
+      name:time + "_" + platformType,
       pos:posStatePlatform,
       bodytype:bodytypeStatePlatform,
       density:densityStatePlatform,
       friction:frictionStatePlatform,
       restitution:restitutionStatePlatform,
-      texture:textureStatePlatform,
+      texture:time + "_" + platformType,
       space:spaceStatePlatform
     }
     updateNumPlat(numPlat + 1)
@@ -189,12 +189,18 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
           </InputGroupAddon>
             <Input onBlur={(e) =>{bodytypeStateTurret = e.target.value;  }} defaultValue = {bodytypeStateTurret}/>
         </InputGroup>
-        <InputGroup>
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Entity Type</InputGroupText>
-          </InputGroupAddon>
-            <Input onBlur={(e) =>{entitytypeStateTurret = e.target.value;  }} defaultValue = {entitytypeStateTurret}/>
-        </InputGroup>
+        <Form inline>
+          <FormGroup >
+            <Label check inline style = {itemTypeStyle}>
+              <Input onChange = {(e) => {entitytypeStateTurret = 'present';}} type="radio" name="entitytypeTurret" id="present" style = {{marginLeft: '8px'}} defaultChecked /> Present {' '} 
+            </Label>
+          </FormGroup>
+          <FormGroup >
+            <Label check inline style = {itemTypeStyle}>
+              <Input onChange = {(e) => {entitytypeStateTurret = 'past';}} type="radio" name="entitytypeTurret" id="past" /> Past {' '}
+            </Label>
+          </FormGroup>
+        </Form>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Cooldown</InputGroupText>
@@ -213,6 +219,18 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
         {/* end turret inputs */}
         {/* begin enemy inputs */}
         <Collapse isOpened = {isCheckedEnemy}>
+        <Form inline>
+          <FormGroup >
+            <Label check inline style = {itemTypeStyle}>
+              <Input onChange = {(e) => {entitytypeStateEnemy = 'present';}} type="radio" name="entitytypeEnemy" id="present" style = {{marginLeft: '8px'}} defaultChecked /> Present {' '} 
+            </Label>
+          </FormGroup>
+          <FormGroup >
+            <Label check inline style = {itemTypeStyle}>
+              <Input onChange = {(e) => {entitytypeStateEnemy = 'past';}} type="radio" name="entitytypeEnemy" id="past" /> Past {' '}
+            </Label>
+          </FormGroup>
+        </Form>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Position</InputGroupText>
@@ -227,12 +245,12 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
             <Input onBlur={(e) =>{shrinkStateEnemy =[+e.target.value,shrinkStateEnemy[1]];   }} defaultValue = {shrinkStateEnemy[0]}/>
             <Input onBlur={(e) =>{shrinkStateEnemy =[shrinkStateEnemy[0],+e.target.value];   }} defaultValue = {shrinkStateEnemy[1]}/>
         </InputGroup>
-        <InputGroup>
+        {/* <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Texture</InputGroupText>
           </InputGroupAddon>
             <Input onBlur={(e) =>{textureStateEnemy = e.target.value;   }} defaultValue = {textureStateEnemy}/>
-        </InputGroup>
+        </InputGroup> */}
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Density</InputGroupText>
@@ -245,12 +263,12 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
           </InputGroupAddon>
             <Input onBlur={(e) =>{bodytypeStateEnemy = e.target.value;   }} defaultValue = {bodytypeStateEnemy}/>
         </InputGroup>
-        <InputGroup>
+        {/* <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Entity Type</InputGroupText>
           </InputGroupAddon>
             <Input onBlur={(e) =>{entitytypeStateEnemy = e.target.value;   }} defaultValue = {entitytypeStateEnemy}/>
-        </InputGroup>
+        </InputGroup> */}
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Cooldown</InputGroupText>
@@ -279,12 +297,24 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
             </Label>
           </FormGroup>  
         </Form>
-        <InputGroup>
+        <Form inline>
+          <FormGroup >
+            <Label check inline style = {itemTypeStyle}>
+              <Input onChange = {(e) => {spaceStatePlatform = 1;}} type="radio" name="space" id="present" style = {{marginLeft: '8px'}} defaultChecked /> Present {' '} 
+            </Label>
+          </FormGroup>
+          <FormGroup >
+            <Label check inline style = {itemTypeStyle}>
+              <Input onChange = {(e) => {spaceStatePlatform = 2;}} type="radio" name="space" id="past" /> Past {' '}
+            </Label>
+          </FormGroup>
+        </Form>
+        {/* <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Name</InputGroupText>
           </InputGroupAddon>
             <Input onBlur={(e) =>{nameStatePlatform = e.target.value;   }} defaultValue = {nameStatePlatform}/>
-        </InputGroup>
+        </InputGroup> */}
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Position</InputGroupText>
@@ -292,12 +322,12 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
             <Input onBlur={(e) =>{posStatePlatform =[+e.target.value,posStatePlatform[1]];   }} defaultValue = {posStatePlatform[0]}/>
             <Input onBlur={(e) =>{posStatePlatform =[posStatePlatform[0],+e.target.value];   }} defaultValue = {posStatePlatform[1]}/>
         </InputGroup>
-        <InputGroup>
+        {/* <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Texture</InputGroupText>
           </InputGroupAddon>
             <Input onBlur={(e) =>{textureStatePlatform = e.target.value;   }} defaultValue = {textureStatePlatform}/>
-        </InputGroup>
+        </InputGroup> */}
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Density</InputGroupText>
@@ -322,12 +352,12 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
           </InputGroupAddon>
             <Input onBlur={(e) =>{restitutionStatePlatform = +e.target.value;   }} defaultValue = {restitutionStatePlatform}/>
         </InputGroup>
-        <InputGroup>
+        {/* <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Space</InputGroupText>
           </InputGroupAddon>
             <Input onBlur={(e) =>{spaceStatePlatform = +e.target.value;   }} defaultValue = {spaceStatePlatform}/>
-        </InputGroup>
+        </InputGroup> */}
         <Button onClick = {() => {newPlatform(platformType)}}>Submit</Button>
         </Collapse>
       </UncontrolledCollapse>
