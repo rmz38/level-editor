@@ -95,10 +95,14 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
       rounds:rounds,
       enemies:enemies
     }
-    console.log("levelwindow",newGS)
     setGameObjects(newGS)
     updateState(newGS)
-       
+  }
+  let coords = {
+    x1: 0,
+    y1: 0,
+    x2: 10,
+    y2: 10
   }
   // rescale formular platform height =  .008 * 600/world.bounds[1]
   let windowItems = [
@@ -106,7 +110,10 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
     <LevelWindowItem scaleX = {.024 * 1000/ world.bounds[0]} scaleY = {.0225 * 600 / world.bounds[1]} centered = {true} key = {"avatar"} texturePres = {gameObjectState.avatar.texture} idInput = "avatar" posInput = {gameCoordToPx(gameObjectState.avatar.pos)} updatePosInput = {updatePos}></LevelWindowItem>
   ]
   for (let [key, value] of Object.entries(turrets)) {
-    windowItems.push(<LevelWindowItem scaleX = {.024 * 1000/ world.bounds[0]} scaleY = {.0225 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {turrets[key].texture} idInput = {key} posInput = {gameCoordToPx(turrets[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
+    windowItems.push(<LevelWindowItem lineX1 = {turrets[key].pos[0] + turrets[key].direction[0]*20}  lineX2 = {turrets[key].pos[0]} lineY2 = {turrets[key].pos[1]} lineY1 = {turrets[key].pos[1] + turrets[key].direction[1] * 20} scaleX = {.024 * 1000/ world.bounds[0]} scaleY = {.0225 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {turrets[key].texture} idInput = {key} posInput = {gameCoordToPx(turrets[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
+    // windowItems.push(<div style = {{zIndex:-1, position:'absolute' as 'absolute', left:gameCoordToPx(turrets[key].pos)[0], bottom:gameCoordToPx(turrets[key].pos)[1]}}><svg height = '60px' width = '160px'>
+    //   <line x1 = {turrets[key].pos[0]} y1= {turrets[key].pos[1]} x2 = {turrets[key].pos[0] + turrets[key].direction[0] * 20} y2 = {turrets[key].pos[1] + turrets[key].direction[1]} stroke = "black" strokeWidth = '2'></line>
+    // </svg></div>);
   }
   for (let [key, value] of Object.entries(capsules)) {
     windowItems.push(< LevelWindowItem scaleX = {.008 * 1000/ world.bounds[0]} scaleY = {.0075 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {capsules[key].texture} idInput = {key} posInput = {gameCoordToPx(capsules[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
@@ -122,7 +129,7 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
   }
   return (
     <div className="LevelWindow" style = {windowStyling}>
-      <img style = {{position:'absolute', top:'0px', left:'0px', height:'600px',width:'1000px', zIndex:-1}}src = {"./assets/"+ backgroundPastPath+".png"}></img>
+      <img style = {{position:'absolute', top:'0px', left:'0px', height:'600px',width:'1000px', zIndex:-10}}src = {"./assets/"+ backgroundPastPath+".png"}></img>
       {windowItems}
     </div>
   );
