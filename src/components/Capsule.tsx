@@ -61,7 +61,7 @@ const Capsule : React.FC<Props> = ({info, update, selected, id}) => {
   };
   return (
     <div >
-      <ButtonGroup>
+      <ButtonGroup style = {{width: '100%'}}>
         <Button color="primary" onClick = {toggle} id="capsule" style={{ backgroundColor:'#36ffae', marginBottom: '1rem' }}>{id}</Button>
         <Button color="danger" onClick = {() => update('delete', id)} id="delete" style={{ marginBottom: '1rem' }}>Delete</Button>
       </ButtonGroup>

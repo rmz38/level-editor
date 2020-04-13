@@ -136,8 +136,8 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
   };
   return (
     <div >
-      <Button color="secondary" id="toggler" style={{ backgroundColor: '#fa511e', marginBottom: '2px' }}>Add</Button>
-      <UncontrolledCollapse toggler = "#toggler">
+      <Button color="secondary" id="toggler" style={{ width: '100%',  backgroundColor: '#fa511e', marginBottom: '2em' }}>Add</Button>
+      <UncontrolledCollapse style = {{marginBottom: '2em'}} toggler = "#toggler">
         <Form inline>
           <FormGroup >
             <Label check inline style = {itemTypeStyle}>
