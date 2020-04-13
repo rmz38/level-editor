@@ -202,10 +202,12 @@ const containerStyling = {
 }
 
 //styling for this
-const appStyling = {
-  minHeight: '20px',
-  height: '25px',
-  width: '100%'
+const headerStyling = {
+  minHeight: '30px',
+  height: '30px',
+  width: '100%',
+  display: 'inline-block',
+  padding:0
 }
 
 //downloads state info as a json called export
@@ -310,12 +312,39 @@ const App : React.FC = ({}) => {
     rounds,
     enemies
   }
-
+  
+  let reader = new FileReader()
+  reader.onload = function(e:any) {
+    let newJSON:any = JSON.parse(JSON.parse(JSON.stringify(e.target.result,null,2)))
+    console.log('newjson',newJSON)
+    let {gravity, bounds, present_background, past_background, diamondshape, capsuleshape, roundshape}:any = newJSON
+    let reformat = {
+      world:{
+        gravity: gravity,
+        bounds:bounds,
+        backgroundPres:present_background,
+        backgroundPast:past_background,
+        diamondshape:diamondshape,
+        capsuleshape:capsuleshape,
+        roundshape:roundshape
+      },
+      door:newJSON.door,
+      avatar:newJSON.avatar,
+      turrets:newJSON.turrets,
+      capsules:newJSON.capsules,
+      diamonds:newJSON.diamonds,
+      rounds:newJSON.rounds,
+      enemies:newJSON.enemies
+    }
+    updateState(reformat);
+    
+  }
   return (
     <div className="App" >
-      <header className="App-header" style = {appStyling} >
-        <button onClick= {() => exportToJson(JSON.parse(JSON.stringify(tester)))} style = {{height:'20px', fontSize:'7pt'}}>Download</button>
-      </header>
+      <div className="App-header" style = {headerStyling} >
+        <button onClick= {() => exportToJson(JSON.parse(JSON.stringify(tester)))} style = {{marginLeft: '20px',height:'20px', fontSize:'7pt'}}>Download</button>
+        <input style = {{marginLeft: '20px', height:'20px', fontSize:'7pt'}} type="file" name="file" onChange={(e:any) => {reader.readAsText(e.target.files[0])}}/>
+      </div>
       <div style = {containerStyling}>
         <LevelWindow key = {JSON.stringify(gameObjects) + "lw"} backgroundPastPath = {world.backgroundPast} backgroundPresPath = {world.backgroundPres} 
           gameObjectState = {gameObjects} updateState = {updateState}></LevelWindow>
