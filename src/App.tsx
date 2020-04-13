@@ -343,7 +343,7 @@ const App : React.FC = ({}) => {
     <div className="App" >
       <div className="App-header" style = {headerStyling} >
         <button onClick= {() => exportToJson(JSON.parse(JSON.stringify(tester)))} style = {{marginLeft: '20px',height:'20px', fontSize:'7pt'}}>Download</button>
-        <input style = {{marginLeft: '20px', height:'20px', fontSize:'7pt'}} type="file" name="file" onChange={(e:any) => {reader.readAsText(e.target.files[0])}}/>
+        {/* <input style = {{marginLeft: '20px', height:'20px', fontSize:'7pt'}} type="file" name="file" onChange={(e:any) => {reader.readAsText(e.target.files[0])}}/> */}
       </div>
       <div style = {containerStyling}>
         <LevelWindow key = {JSON.stringify(gameObjects) + "lw"} backgroundPastPath = {world.backgroundPast} backgroundPresPath = {world.backgroundPres} 
