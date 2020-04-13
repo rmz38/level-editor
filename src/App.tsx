@@ -239,6 +239,7 @@ const App : React.FC = ({}) => {
   const [enemies, setEnemies] = useState(levelInit.enemies);
   const [gameObjects, setGameObjects] = useState<any>(levelInit); //represents json, init with levelinit
   const [numPlat, setNumPlat] = useState(9);
+  const [numEnemy, setNumEnemy] = useState(5);
   const [objectPostitions, setOp] = useState(new Object()) // not used yet
 
 
@@ -268,6 +269,9 @@ const App : React.FC = ({}) => {
   }
   let updateNumPlat = (n:number) => {
     setNumPlat(n);
+  }
+  let updateNumEnemy = (n:number) => {
+    setNumEnemy(n);
   }
   //used for debugging and formatting json during download
   
@@ -315,7 +319,7 @@ const App : React.FC = ({}) => {
       <div style = {containerStyling}>
         <LevelWindow key = {JSON.stringify(gameObjects) + "lw"} backgroundPastPath = {world.backgroundPast} backgroundPresPath = {world.backgroundPres} 
           gameObjectState = {gameObjects} updateState = {updateState}></LevelWindow>
-        <ItemDashboard updateNumPlatApp = {updateNumPlat} numPlat = {numPlat} key = {JSON.stringify(gameObjects)} gameObjectsInput={gameObjects} update={updateState} selected={selectComponent}>
+        <ItemDashboard updateNumEnemyApp = {updateNumEnemy} numEnemy = {numEnemy} updateNumPlatApp = {updateNumPlat} numPlat = {numPlat} key = {JSON.stringify(gameObjects)} gameObjectsInput={gameObjects} update={updateState} selected={selectComponent}>
           </ItemDashboard>
       </div>
     </div>

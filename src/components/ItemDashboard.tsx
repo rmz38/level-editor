@@ -18,7 +18,9 @@ interface Props {
     update: (data:any) => void
     selected: (id:string, open:boolean) => void
     numPlat: number
+    numEnemy: number
     updateNumPlatApp: (n:number) => void
+    updateNumEnemyApp: (n:number) => void
 }
 
 // interface GameObjectType{
@@ -38,7 +40,7 @@ const windowStyling : CSS.Properties= {
 //   return <Turret pos = {p} updatefn = {updateTurret}></Turret>;
 // }
 
-const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, numPlat, updateNumPlatApp}) => {
+const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, numPlat, updateNumPlatApp, numEnemy, updateNumEnemyApp}) => {
   const [gameObjects, setGameObjects] = useState<any>(JSON.parse(JSON.stringify(gameObjectsInput)));
   let {avatar, door, turrets, diamonds, rounds, enemies, capsules} = gameObjects
   //updates in App the state assuming world was changed
@@ -103,7 +105,7 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
           break;
         }
       }
-      if(add){newTurrets[id] = newTurr}
+      if(add){id = id + (numEnemy + 1); updateNumEnemy(numEnemy + 1); newTurrets[id] = newTurr}
     }
     let newGameObjects = {
       world:world,
@@ -224,7 +226,7 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
           break;
         }
       }
-      if(add){newEnemies[id] = newEnemy}
+      if(add){id = id + (numEnemy + 1); updateNumEnemy(numEnemy + 1); newEnemies[id] = newEnemy}
     }
     let newGameObjects = {
       world:world,
@@ -251,6 +253,9 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
   }
   let updateNumPlat = (n:number) => {
     updateNumPlatApp(n);
+  }
+  let updateNumEnemy = (n:number) => {
+    updateNumEnemyApp(n);
   }
   //list of components initially, will always have a door, world, and avatar, avatar not implemented yet
   const [componentList, setComponentList] = useState<any>([
