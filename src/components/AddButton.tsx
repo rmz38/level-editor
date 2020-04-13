@@ -22,6 +22,9 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
   const [isCheckedTurret, setIsCheckedTurret] = useState(true);
   const [isCheckedEnemy, setIsCheckedEnemy] = useState(false);
   const [isCheckedPlatform, setIsCheckedPlatform] = useState(false);
+  const [isCheckedCapsule, setIsCheckedCapsule] = useState(false);
+  const [isCheckedDiamond, setIsCheckedDiamond] = useState(false);
+  const [isCheckedRound, setIsCheckedRound] = useState(false);
   // const [numPlatforms, setNumPlatforms] =useState(numPlat)
   const [init, setInit] = useState(true);
 
@@ -40,6 +43,10 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
     setIsCheckedTurret(false);
     setIsCheckedPlatform(true);
   }
+  // let openCapsule = () => {
+  //   openPlatform()
+
+  // }
   
   //turret states 
   let posStateTurret= [17,9]
@@ -102,9 +109,9 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
     let time = 'bugHappened'
     let newKey = 'bugHappened'
     if (spaceStatePlatform == 1 || spaceStatePlatform == 3){
-      time = 'present' + numPlat
+      time = 'present'
     } else if(spaceStatePlatform == 2){
-      time = 'past' + numPlat
+      time = 'past'
     } else {
       time = 'bugNotPastPres'
     }
