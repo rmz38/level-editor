@@ -312,7 +312,15 @@ const App : React.FC = ({}) => {
     rounds,
     enemies
   }
-  
+  let rename = (base:string, objects:any) =>{
+    let index = 1
+    let newObject:any = {}
+    for(let [key, value] of Object.entries(objects)){
+      newObject[base + index + ""] = value
+      index++
+    }
+    return newObject
+  }
   let reader = new FileReader()
   reader.onload = function(e:any) {
     let newJSON:any = JSON.parse(JSON.parse(JSON.stringify(e.target.result,null,2)))
@@ -330,11 +338,11 @@ const App : React.FC = ({}) => {
       },
       door:newJSON.door,
       avatar:newJSON.avatar,
-      turrets:newJSON.turrets,
-      capsules:newJSON.capsules,
-      diamonds:newJSON.diamonds,
-      rounds:newJSON.rounds,
-      enemies:newJSON.enemies
+      turrets:rename('turret',newJSON.turrets),
+      capsules:rename('capsule',newJSON.capsules),
+      diamonds:rename('diamond', newJSON.diamonds),
+      rounds:rename('round',newJSON.rounds),
+      enemies:rename('enemies',newJSON.enemies)
     }
     updateState(reformat);
     
@@ -343,7 +351,7 @@ const App : React.FC = ({}) => {
     <div className="App" >
       <div className="App-header" style = {headerStyling} >
         <button onClick= {() => exportToJson(JSON.parse(JSON.stringify(tester)))} style = {{marginLeft: '20px',height:'20px', fontSize:'7pt'}}>Download</button>
-        {/* <input style = {{marginLeft: '20px', height:'20px', fontSize:'7pt'}} type="file" name="file" onChange={(e:any) => {reader.readAsText(e.target.files[0])}}/> */}
+        <input style = {{marginLeft: '20px', height:'20px', fontSize:'7pt'}} type="file" name="file" onChange={(e:any) => {reader.readAsText(e.target.files[0])}}/>
       </div>
       <div style = {containerStyling}>
         <LevelWindow key = {JSON.stringify(gameObjects) + "lw"} backgroundPastPath = {world.backgroundPast} backgroundPresPath = {world.backgroundPres} 
