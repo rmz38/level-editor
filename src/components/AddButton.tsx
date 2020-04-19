@@ -51,7 +51,7 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
   //turret states 
   let posStateTurret= [17,9]
   let shrinkStateTurret = [0.0168, 0.021375]
-  let textureStateTurret = 'turret'
+  let textureStateTurret = 'turret_present'
   let densityStateTurret = 1.0
   let bodytypeStateTurret = 'static'
   let entitytypeStateTurret = 'present'
@@ -192,12 +192,12 @@ const AddButton : React.FC<Props> = ({gameObjects, updateTurret, updateEnemy,upd
         <Form inline>
           <FormGroup >
             <Label check inline style = {itemTypeStyle}>
-              <Input onChange = {(e) => {entitytypeStateTurret = 'present';}} type="radio" name="entitytypeTurret" id="present" style = {{marginLeft: '8px'}} defaultChecked /> Present {' '} 
+              <Input onChange = {(e) => {entitytypeStateTurret = 'present'; textureStateTurret = "turret_" + entitytypeStateTurret }} type="radio" name="entitytypeTurret" id="present" style = {{marginLeft: '8px'}} defaultChecked /> Present {' '} 
             </Label>
           </FormGroup>
           <FormGroup >
             <Label check inline style = {itemTypeStyle}>
-              <Input onChange = {(e) => {entitytypeStateTurret = 'past';}} type="radio" name="entitytypeTurret" id="past" /> Past {' '}
+              <Input onChange = {(e) => {entitytypeStateTurret = 'past';textureStateTurret = 'turret_' + entitytypeStateTurret}} type="radio" name="entitytypeTurret" id="past" /> Past {' '}
             </Label>
           </FormGroup>
         </Form>

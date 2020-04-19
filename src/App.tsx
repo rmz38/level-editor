@@ -173,7 +173,7 @@ let levelInit = {
     turret1: {
       pos: [18.5,10.3],
       shrink: [0.0168, 0.021375],
-      texture: "turret",
+      texture: "turret_present",
       entitytype: "present",
       cooldown: 360,
       direction: [-3.0, 0.0],
@@ -183,7 +183,7 @@ let levelInit = {
     turret2: {
       pos: [8.5, 5.0],
       shrink: [0.0168, 0.021375],
-      texture: "turret",
+      texture: "turret_past",
       entitytype: "past",
       cooldown: 480,
       direction: [0.0, 2.0],
