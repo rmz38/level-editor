@@ -52,7 +52,7 @@ const LevelWindowItem : React.FC<Props> = ({texturePres,texturePast,idInput,posI
         <img ref = {el => temp = el} src = {"./assets/" + texturePres +".png"} style = {{width: width * scaleX, height: height * scaleY +'px', position:'absolute', left:centered ? posInput[0] - width*scaleX/2 : posInput[0], bottom:centered ? posInput[1] - height*scaleY/2 : posInput[1]}}
           onLoad={(e) => {setWidth(temp.naturalWidth); setHeight(temp.naturalHeight);}}></img>
     </Draggable>
-    <div style = {{zIndex: -1, width: width * scaleX + 'px', height: height * scaleY +'px', position:'absolute', left:(centered ? posInput[0] - width*scaleX/2 : posInput[0] + width*scaleX/2) + 'px', bottom:posInput[1]+20+'px'}}>
+    <div style = {{zIndex: -1, width: width * scaleX + 'px', height: height * scaleY +'px', position:'absolute', left:centered ? posInput[0] - width*scaleX/2 : posInput[0] + 'px', bottom:posInput[1]+20+'px'}}>
       <svg>
         <line {...coords} stroke = "black" strokeWidth = '2'></line>
       </svg>

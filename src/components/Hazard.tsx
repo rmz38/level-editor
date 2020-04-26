@@ -15,7 +15,7 @@ interface Props {
   // isMenuOpenFn: (b:boolean) => boolean
   // isMenuOpen?: boolean
 }
-const Enemy : React.FC<Props> = ({info, update, selected, id, world}) => {
+const Hazard : React.FC<Props> = ({info, update, selected, id, world}) => {
 
   //update is a prop for updating in App the state, passes through ItemDashboard first
   const [isOpen, setIsOpen] = useState(false);
@@ -105,4 +105,4 @@ const Enemy : React.FC<Props> = ({info, update, selected, id, world}) => {
   );
 }
 
-export default Enemy;
+export default Hazard;
