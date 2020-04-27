@@ -25,9 +25,7 @@ let levelInit = {
     friction: 0.6,
     restitution: 0.1,
     bullet_offset: 0.7,
-    effect_volume: 0.8,
-    past_music: "past2",
-    present_music: "present2",
+    effect_volume: 0.8
   },
   capsules: {
     presentcapsule1: {
@@ -344,8 +342,6 @@ const App : React.FC = ({}) => {
     restitution: world.restitution,
     bullet_offset: world.bullet_offset,
     effect_volume: world.effect_volume,
-    past_music: world.past_music,
-    present_music: world.present_music,
     door,
     avatar,
     turrets,

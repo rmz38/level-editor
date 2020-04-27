@@ -10,6 +10,9 @@ import Avatar from './Avatar';
 import Capsule from './Capsule';
 import Diamond from './Diamond';
 import Round from './Round';
+import Longcapsule from './Longcapsule';
+import Tall from './Tall';
+import Pillar from './Pillar';
 import Enemy from './Enemy';
 import AddButton from './AddButton';
 import Spike from './Spike';
@@ -420,7 +423,10 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
       diamonds:diamonds,
       rounds:rounds,
       enemies:enemies,
-      spikes:newSpikes
+      spikes:newSpikes,
+      talls:talls,
+      longcapsules:longcapsules,
+      pillars:pillars
     }
     update(newGameObjects)
     setGameObjects(newGameObjects)
@@ -445,6 +451,15 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
   }
   for (let [key, value] of Object.entries(gameObjects.rounds)) {
     components.push(<Round world = {gameObjects.world} key = {key + Math.random()} info = {value} id = {key} update = {updateRoundState} selected = {selected}></Round>);
+  }
+  for (let [key, value] of Object.entries(gameObjects.longcapsules)) {
+    components.push(<Longcapsule world = {gameObjects.world} key = {key + Math.random()} info = {value} id = {key} update = {updateLongcapsuleState} selected = {selected}></Longcapsule>);
+  }
+  for (let [key, value] of Object.entries(gameObjects.talls)) {
+    components.push(<Tall world = {gameObjects.world} key = {key + Math.random()} info = {value} id = {key} update = {updateTallState} selected = {selected}></Tall>);
+  }
+  for (let [key, value] of Object.entries(gameObjects.pillars)) {
+    components.push(<Pillar world = {gameObjects.world} key = {key + Math.random()} info = {value} id = {key} update = {updatePillarState} selected = {selected}></Pillar>);
   }
   for (let [key, value] of Object.entries(gameObjects.enemies)) {
     components.push(<Enemy world = {gameObjects.world} key = {key} info = {value} id = {key} update = {updateEnemyState} selected = {selected}></Enemy>);
