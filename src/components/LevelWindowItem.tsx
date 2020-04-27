@@ -3,11 +3,9 @@ import React, { Fragment, useState, ContextType } from 'react'
 import { string } from 'prop-types';
 import CSS from 'csstype';
 import Draggable from 'react-draggable'; // The default
-import Moveable from "react-moveable";
 import { DraggableCore } from 'react-draggable'; // <DraggableCore>
-import { url } from 'inspector';
-import Circle from './Circle'
 import styles from './styles.module.css';
+import Tooltip from '@material-ui/core/Tooltip';
 
 interface Props {
   texturePres?: string
@@ -54,18 +52,20 @@ const LevelWindowItem: React.FC<Props> = ({ texturePres, texturePast, idInput, p
             left: centered ? posInput[0] - width * scaleX / 2 : posInput[0],
             bottom: centered ? posInput[1] - height * scaleY / 2 : posInput[1],
           }}>
-        <img
-          ref={el => temp = el}
-          src={"./assets/" + texturePres + ".png"}
-          style={{
-            width: width * scaleX,
-            height: height * scaleY + 'px',
-            transform: 'rotate(' + transAngle + 'deg)'
-          }}
-          onLoad={(e) => { setWidth(temp.naturalWidth); setHeight(temp.naturalHeight);}}
-          alt={texturePres}
-        >
-        </img>
+        <Tooltip title = {id} aria-label= {id}>
+          <img
+            ref={el => temp = el}
+            src={"./assets/" + texturePres + ".png"}
+            style={{
+              width: width * scaleX,
+              height: height * scaleY + 'px',
+              transform: 'rotate(' + transAngle + 'deg)'
+            }}
+            onLoad={(e) => { setWidth(temp.naturalWidth); setHeight(temp.naturalHeight);}}
+            alt={texturePres}
+          >
+          </img>
+        </Tooltip>
         </div>
       </Draggable>
       <div style={{
@@ -81,7 +81,6 @@ const LevelWindowItem: React.FC<Props> = ({ texturePres, texturePast, idInput, p
         </svg>
       </div>
     </div>
-
   );
 }
 
