@@ -38,7 +38,9 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
   let rounds = gameObjects.rounds
   let enemies = gameObjects.enemies
   let spikes = gameObjects.spikes
-
+  let talls = gameObjects.talls
+  let pillars = gameObjects.pillars
+  let longcapsules = gameObjects.longcapsules
   //takes an array representing a position in game coordinates and converts to array of pixel coordinates
   let gameCoordToPx = (gc:Array<number>) => {
     return [gc[0] * 1000 / world.bounds[0], gc[1] * 600 / world.bounds[1]]
@@ -73,7 +75,14 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
           rounds[key].pos = p;
         }
       }
-    } else if (id.includes('capsule')){
+    } else if (id.includes('longcapsule')){
+      for (let [key, value] of Object.entries(longcapsules)){
+        if(key == id){
+          console.log('long');
+          longcapsules[key].pos = p;
+        }
+      }
+    }else if (id.includes('capsule')){
       for (let [key, value] of Object.entries(capsules)){
         if(key == id){
           capsules[key].pos = p;
@@ -91,6 +100,18 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
           spikes[key].pos = p;
         }
       }
+    } else if (id.includes('tall')){
+      for (let [key, value] of Object.entries(talls)){
+        if(key == id){
+          talls[key].pos = p;
+        }
+      }
+    } else if (id.includes('pillar')){
+      for (let [key, value] of Object.entries(pillars)){
+        if(key == id){
+          pillars[key].pos = p;
+        }
+      }
     }
     let newGS = {
       world:world,
@@ -101,7 +122,10 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
       diamonds:diamonds,
       rounds:rounds,
       enemies:enemies,
-      spikes:spikes
+      spikes:spikes,
+      pillars:pillars,
+      talls:talls,
+      longcapsules:longcapsules
     }
     setGameObjects(newGS)
     updateState(newGS)
@@ -137,6 +161,15 @@ const LevelWindow : React.FC<Props> = ({backgroundPastPath, backgroundPresPath, 
   }
   for (let [key, value] of Object.entries(spikes)) {
     windowItems.push(<LevelWindowItem scaleX = {.01 * 1000/ world.bounds[0]} scaleY = {.01 * 600/world.bounds[1]} centered = {true} key = {key} texturePres = {spikes[key].texture} idInput = {key} posInput = {gameCoordToPx(spikes[key].pos)} updatePosInput = {updatePos} angle = {spikes[key].angle}></LevelWindowItem>);
+  }
+  for (let [key, value] of Object.entries(talls)) {
+    windowItems.push(<LevelWindowItem scaleX = {.008 * 1000/ world.bounds[0]} scaleY = {.0075 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {talls[key].texture} idInput = {key} posInput = {gameCoordToPx(talls[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
+  }
+  for (let [key, value] of Object.entries(pillars)) {
+    windowItems.push(<LevelWindowItem scaleX = {.008 * 1000/ world.bounds[0]} scaleY = {.0075 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {pillars[key].texture} idInput = {key} posInput = {gameCoordToPx(pillars[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
+  }
+  for (let [key, value] of Object.entries(longcapsules)) {
+    windowItems.push(<LevelWindowItem scaleX = {.008 * 1000/ world.bounds[0]} scaleY = {.0075 * 600/world.bounds[1]} centered = {false} key = {key} texturePres = {longcapsules[key].texture} idInput = {key} posInput = {gameCoordToPx(longcapsules[key].pos)} updatePosInput = {updatePos}></LevelWindowItem>);
   }
   return (
     <div className="LevelWindow" style = {windowStyling}>

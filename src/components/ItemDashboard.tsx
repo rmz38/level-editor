@@ -45,7 +45,7 @@ const windowStyling : CSS.Properties= {
 const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, numPlat, updateNumPlatApp, numEnemy, updateNumEnemyApp}) => {
   const [gameObjects, setGameObjects] = useState<any>(JSON.parse(JSON.stringify(gameObjectsInput)));
   console.log("init game objects", gameObjects)
-  let {world, avatar, door, turrets, diamonds, rounds, enemies, capsules, spikes} = gameObjects
+  let {world, avatar, door, turrets, diamonds, rounds, enemies, capsules, spikes, talls, longcapsules, pillars} = gameObjects
   console.log("init spikes", spikes)
   //updates in App the state assuming world was changed
   let updateWorldState = (newWorld:any) => {
@@ -59,7 +59,10 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
       diamonds:diamonds,
       rounds:rounds,
       enemies:enemies,
-      spikes:spikes
+      spikes:spikes,
+      talls:talls,
+      longcapsules:longcapsules,
+      pillars:pillars
     }
     update(newGameObjects);
     setGameObjects(newGameObjects)
@@ -76,7 +79,10 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
       diamonds:diamonds,
       rounds:rounds,
       enemies:enemies,
-      spikes:spikes
+      spikes:spikes,
+      talls:talls,
+      longcapsules:longcapsules,
+      pillars:pillars
     }
     update(newGameObjects)
     setGameObjects(newGameObjects)
@@ -93,7 +99,10 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
       diamonds:diamonds,
       rounds:rounds,
       enemies:enemies,
-      spikes:spikes
+      spikes:spikes,
+      talls:talls,
+      longcapsules:longcapsules,
+      pillars:pillars
     }
     update(newGameObjects)
     setGameObjects(newGameObjects)
@@ -123,7 +132,10 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
       diamonds:diamonds,
       rounds:rounds,
       enemies:enemies,
-      spikes:spikes
+      spikes:spikes,
+      talls:talls,
+      longcapsules:longcapsules,
+      pillars:pillars
     }
     update(newGameObjects)
     setGameObjects(newGameObjects)
@@ -155,6 +167,9 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
       rounds:rounds,
       enemies:enemies,
       spikes:spikes,
+      talls:talls,
+      longcapsules:longcapsules,
+      pillars:pillars
     }
     update(newGameObjects)
     setGameObjects(newGameObjects)
@@ -187,7 +202,10 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
       diamonds:newDiamonds,
       rounds:rounds,
       enemies:enemies,
-      spikes:spikes
+      spikes:spikes,
+      talls:talls,
+      longcapsules:longcapsules,
+      pillars:pillars
     }
     console.log("debugging new diamond platform", newGameObjects)
     update(newGameObjects)
@@ -218,7 +236,107 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
       diamonds:diamonds,
       rounds:newRounds,
       enemies:enemies,
-      spikes:spikes
+      spikes:spikes,
+      talls:talls,
+      longcapsules:longcapsules,
+      pillars:pillars
+    }
+    update(newGameObjects)
+    setGameObjects(newGameObjects)
+  }
+  let updateTallState = (newTall:any, id:string) => {
+    let newTalls = talls;
+    let add = true;
+    if (newTall == 'delete'){
+      delete newTalls[id]
+    }else{
+      for (let [key, value] of Object.entries(talls)) {
+        if(key === id){
+          newTalls[key] = newTall;
+          add = false;
+          break;
+        }
+      }
+      if(add){newTalls[id] = newTall}
+    }
+    console.log(newTalls);
+    let newGameObjects = {
+      world:world,
+      avatar:avatar,
+      door:door,
+      turrets:turrets,
+      capsules:capsules,
+      diamonds:diamonds,
+      rounds:rounds,
+      enemies:enemies,
+      spikes:spikes,
+      talls:newTalls,
+      longcapsules:longcapsules,
+      pillars:pillars
+    }
+    update(newGameObjects)
+    setGameObjects(newGameObjects)
+  }
+  let updateLongcapsuleState = (newLongcapsule:any, id:string) => {
+    let newLongcapsules = longcapsules;
+    let add = true;
+    if (newLongcapsule ==='delete'){
+      delete newLongcapsules[id]
+    }else{
+      for (let [key, value] of Object.entries(talls)) {
+        if(key === id){
+          newLongcapsules[key] = newLongcapsule;
+          add = false;
+          break;
+        }
+      }
+      if(add){newLongcapsules[id] = newLongcapsule}
+    }
+    let newGameObjects = {
+      world:world,
+      avatar:avatar,
+      door:door,
+      turrets:turrets,
+      capsules:capsules,
+      diamonds:diamonds,
+      rounds:rounds,
+      enemies:enemies,
+      spikes:spikes,
+      talls:talls,
+      longcapsules:newLongcapsules,
+      pillars:pillars
+    }
+    update(newGameObjects)
+    setGameObjects(newGameObjects)
+  }
+  let updatePillarState = (newPillar:any, id:string) => {
+    let newPillars = pillars;
+    let add = true;
+    if (newPillar == 'delete'){
+      delete newPillars[id]
+    }else{
+      for (let [key, value] of Object.entries(talls)) {
+        if(key === id){
+          newPillars[key] = newPillar;
+          add = false;
+          break;
+        }
+      }
+      if(add){newPillars[id] = newPillar}
+    }
+    let newGameObjects = {
+      world:world,
+      avatar:avatar,
+      door:door,
+      turrets:turrets,
+      capsules:capsules,
+      diamonds:diamonds,
+      rounds:rounds,
+      enemies:enemies,
+      spikes:spikes,
+      talls:talls,
+      longcapsules:longcapsules,
+      pillars:newPillars
     }
     update(newGameObjects)
     setGameObjects(newGameObjects)
@@ -248,18 +366,27 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
       diamonds:diamonds,
       rounds:rounds,
       enemies:newEnemies,
-      spikes: spikes
+      spikes: spikes,
+      talls:talls,
+      longcapsules:longcapsules,
+      pillars:pillars
     }
     update(newGameObjects)
     setGameObjects(newGameObjects)
   }
   let addPlatform = (newPlatform:any, id:string, type:string) => {
-    if( type == 'round'){
+    if( type === 'round'){
       updateRoundState(newPlatform, id +(numPlat + 1))
-    } else if (type == 'diamond'){
+    } else if (type === 'diamond'){
       updateDiamondState(newPlatform, id  + (numPlat + 1))
-    } else {
+    } else if (type === 'capsule') {
       updateCapsuleState(newPlatform, id  + (numPlat + 1))
+    } else if (type === 'longcapsule') {
+      updateLongcapsuleState(newPlatform, id  + (numPlat + 1))
+    } else if (type === 'tall'){
+      updateTallState(newPlatform, id  + (numPlat + 1))
+    } else if (type === 'pillar'){
+      updatePillarState(newPlatform, id  + (numPlat + 1))
     }
   }
   let updateNumPlat = (n:number) => {

@@ -219,6 +219,15 @@ let levelInit = {
       angle: 30
     }
 
+  },
+  longcapsules:{
+    
+  },
+  talls:{
+
+  },
+  pillars:{
+
   }
 };
 
