@@ -420,7 +420,10 @@ const ItemDashboard : React.FC<Props> = ({gameObjectsInput, update, selected, nu
       diamonds:diamonds,
       rounds:rounds,
       enemies:enemies,
-      spikes:newSpikes
+      spikes:newSpikes,
+      talls:talls,
+      longcapsules:longcapsules,
+      pillars:pillars
     }
     update(newGameObjects)
     setGameObjects(newGameObjects)

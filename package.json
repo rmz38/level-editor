@@ -2,7 +2,7 @@
   "name": "level-editor",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "http://rmz38.github.io/level-editor",
   "dependencies": {
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
