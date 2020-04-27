@@ -362,7 +362,7 @@ const AddButton: React.FC<Props> = ({ gameObjects, updateTurret, updateEnemy, up
                 <Input onChange={(e) => { platformType = 'round'; }} type="radio" name="platformType" id="round" /> Round {' '}
               </Label>
             </FormGroup>
-            <FormGroup >
+            {/* <FormGroup >
               <Label check inline style={itemTypeStyle}>
                 <Input onChange={(e) => { platformType = 'tall'; }} type="radio" name="platformType" id="round" /> Tall {' '}
               </Label>
@@ -376,7 +376,7 @@ const AddButton: React.FC<Props> = ({ gameObjects, updateTurret, updateEnemy, up
               <Label check inline style={itemTypeStyle}>
                 <Input onChange={(e) => { platformType = 'pillar'; }} type="radio" name="platformType" id="round" /> Pillar {' '}
               </Label>
-            </FormGroup>
+            </FormGroup> */}
           </Form>
           <Form inline>
             <FormGroup >
