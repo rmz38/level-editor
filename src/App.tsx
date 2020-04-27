@@ -19,12 +19,15 @@ let levelInit = {
     diamondshape: [ 0.2, 1.8, 2.4, 1.8, 1.4, 0.1],
     capsuleshape: [0.2,1.1,2.9,1.1,2.9,0.6,1.7,0.1,0.2,0.6],
     roundshape: [ 0.1, 1.4, 0.5, 1.7, 2.4, 1.7, 2.7, 1.4, 2.6, 0.8, 2.0, 0.2, 0.8, 0.2 ],
+    spikeshape: [0.3, -0.6, 0.0, -0.2, -0.6, 0.0, -0.5, 0.4, 0.0, 0.6, 0.4, -0.2, 0.6, -0.3],
     density: 0.0,
     heavy_density: 10.0,
     friction: 0.6,
     restitution: 0.1,
     bullet_offset: 0.7,
-    effect_volume: 0.8
+    effect_volume: 0.8,
+    past_music: "past2",
+    present_music: "present2",
   },
   capsules: {
     presentcapsule1: {
@@ -133,6 +136,7 @@ let levelInit = {
       shrink: [0.0168, 0.021375],
       texture: "enemypresent",
       entitytype: "present",
+      aitype: 1,
       cooldown: 120,
       bodytype: "dynamic",
       density: 1.0
@@ -141,6 +145,7 @@ let levelInit = {
       pos: [15.625, 11.03125],
       shrink: [0.0168, 0.021375],
       texture: "enemypast",
+      aitype: 1,
       entitytype: "past",
       cooldown: 120,
       bodytype: "dynamic",
@@ -323,12 +328,15 @@ const App : React.FC = ({}) => {
     diamondshape: world.diamondshape,
     capsuleshape: world.capsuleshape,
     roundshape: world.roundshape,
+    spikeshape: world.spikeshape,
     density: world.density,
     heavy_density: world.heavy_density,
     friction: world.friction,
     restitution: world.restitution,
     bullet_offset: world.bullet_offset,
     effect_volume: world.effect_volume,
+    past_music: world.past_music,
+    present_music: world.present_music,
     door,
     avatar,
     turrets,
@@ -381,7 +389,11 @@ const App : React.FC = ({}) => {
         <label htmlFor="level_input">Level</label>
         <input style = {{marginLeft: '20px', height:'20px', fontSize:'7pt'}} id = "level_input" type="text" name="text" onChange={(e:any) => {level = e.target.value}}/>
         <button onClick= {() => exportToJson(JSON.parse(JSON.stringify(tester)))} style = {{marginLeft: '20px',height:'20px', fontSize:'7pt'}}>Download</button>
-        <input style = {{marginLeft: '20px', height:'20px', fontSize:'7pt'}} type="file" name="file" onChange={(e:any) => {reader.readAsText(e.target.files[0])}}/>
+        <input style = {{marginLeft: '20px', height:'20px', fontSize:'7pt'}} type="file" name="file" onChange={(e:any) => {
+          if(typeof e.target.files[0] == 'object'){
+           reader.readAsText(e.target.files[0])
+          }
+          }}/>
       </div>
       <div style = {containerStyling}>
         <LevelWindow key = {JSON.stringify(gameObjects) + "lw"} backgroundPastPath = {world.backgroundPast} backgroundPresPath = {world.backgroundPres} 

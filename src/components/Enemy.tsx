@@ -19,7 +19,7 @@ const Enemy : React.FC<Props> = ({info, update, selected, id, world}) => {
 
   //update is a prop for updating in App the state, passes through ItemDashboard first
   const [isOpen, setIsOpen] = useState(false);
-  const {pos, shrink, texture, entitytype, cooldown, bodytype, density} = info
+  const {pos, shrink, texture, aitype, entitytype, cooldown, bodytype, density} = info
 
   let posState= pos
   let shrinkState = shrink
@@ -28,6 +28,7 @@ const Enemy : React.FC<Props> = ({info, update, selected, id, world}) => {
   let bodytypeState = bodytype
   let entitytypeState = entitytype
   let cooldownState = cooldown
+  let aitypeState = aitype
   let gameCoordToPx = (gc:Array<number>) => {
     return [gc[0] * 1000 / world.bounds[0], gc[1] * 600 / world.bounds[1]]
   }
@@ -38,6 +39,7 @@ const Enemy : React.FC<Props> = ({info, update, selected, id, world}) => {
           pos: posState,
           shrink: shrinkState,
           texture: textureState,
+          aitype: aitypeState,
           density: densityState,
           bodytype: bodytypeState,
           entitytype:entitytypeState,
@@ -92,6 +94,12 @@ const Enemy : React.FC<Props> = ({info, update, selected, id, world}) => {
             <InputGroupText>Entity Type</InputGroupText>
           </InputGroupAddon>
             <Input onBlur={(e) =>{entitytypeState = e.target.value; update(updatedState(), id)}} defaultValue = {entitytype}/>
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType="prepend">
+            <InputGroupText>AI Type</InputGroupText>
+          </InputGroupAddon>
+            <Input onBlur={(e) =>{aitypeState = +e.target.value; update(updatedState(), id)}} defaultValue = {aitype}/>
         </InputGroup>
         <InputGroup>
           <InputGroupAddon addonType="prepend">

@@ -77,6 +77,7 @@ const AddButton: React.FC<Props> = ({ gameObjects, updateTurret, updateEnemy, up
   let bodytypeStateEnemy = 'dynamic'
   let entitytypeStateEnemy = 'present'
   let cooldownStateEnemy = 120
+  let aitypeStateEnemy = 1
 
   //platform states 
   let platformType = 'capsule'
@@ -123,6 +124,7 @@ const AddButton: React.FC<Props> = ({ gameObjects, updateTurret, updateEnemy, up
       bodytype: bodytypeStateEnemy,
       entitytype: entitytypeStateEnemy,
       cooldown: cooldownStateEnemy,
+      aitype: aitypeStateEnemy
     }
     updateEnemy(newEnemy, newKey)
   }
@@ -287,6 +289,28 @@ const AddButton: React.FC<Props> = ({ gameObjects, updateTurret, updateEnemy, up
             <Input onBlur={(e) => { shrinkStateEnemy = [+e.target.value, shrinkStateEnemy[1]]; }} defaultValue={shrinkStateEnemy[0]} />
             <Input onBlur={(e) => { shrinkStateEnemy = [shrinkStateEnemy[0], +e.target.value]; }} defaultValue={shrinkStateEnemy[1]} />
           </InputGroup>
+          <Form inline>
+            <FormGroup >
+              <Label check inline style={itemTypeStyle}>
+                <Input onChange={(e) => { aitypeStateEnemy = 1; }} type="radio" name="aitypeEnemy"style={{ marginLeft: '8px' }} defaultChecked /> Walk {' '}
+              </Label>
+            </FormGroup>
+            <FormGroup >
+              <Label check inline style={itemTypeStyle}>
+                <Input onChange={(e) => { aitypeStateEnemy = 2; }} type="radio" name="aitypeEnemy"/> Teleport{' '}
+              </Label>
+            </FormGroup>
+            <FormGroup >
+              <Label check inline style={itemTypeStyle}>
+                <Input onChange={(e) => { aitypeStateEnemy = 3; }} type="radio" name="aitypeEnemy"/> Gun{' '}
+              </Label>
+            </FormGroup>
+            <FormGroup >
+              <Label check inline style={itemTypeStyle}>
+                <Input onChange={(e) => { aitypeStateEnemy = 4; }} type="radio" name="aitypeEnemy"/> Fly{' '}
+              </Label>
+            </FormGroup>
+          </Form>
           {/* <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Texture</InputGroupText>
