@@ -8,7 +8,8 @@ import Door from './components/Door';
 import Avatar from './components/Avatar';
 // import uuid from 'uuid';
 
-//initial json
+//initial json and level
+let level = 0;
 let levelInit = {
   world: {
     gravity: -14.7,
@@ -190,6 +191,29 @@ let levelInit = {
       bodytype: "static",
       density: 1.0
     }
+  },
+  spikes:{
+    spike0:{
+      pos: [3,4],
+      bodytype: "static",
+      density: 0.0,
+      friction: 0.6,
+      restitution: 0.1,
+      texture: "spikes",
+      space: 1,
+      angle: 30
+    },
+    spike1:{
+      pos: [5,6],
+      bodytype: "static",
+      density: 0.0,
+      friction: 0.6,
+      restitution: 0.1,
+      texture: "spikes",
+      space: 1,
+      angle: 30
+    }
+
   }
 };
 
@@ -212,7 +236,7 @@ const headerStyling = {
 
 //downloads state info as a json called export
 function exportToJson(objectData: JSON) {
-  let filename = "export.json";
+  let filename = "level_" + level + ".json";
   let contentType = "application/json;charset=utf-8;";
   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
     var blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(objectData)))], { type: contentType });
@@ -239,6 +263,7 @@ const App : React.FC = ({}) => {
   const [diamonds, setDiamonds] = useState(levelInit.diamonds);
   const [rounds, setRounds] = useState(levelInit.rounds);
   const [enemies, setEnemies] = useState(levelInit.enemies);
+  const [spikes, setSpikes] = useState(levelInit.spikes);
   const [gameObjects, setGameObjects] = useState<any>(levelInit); //represents json, init with levelinit
   const [numPlat, setNumPlat] = useState(9);
   const [numEnemy, setNumEnemy] = useState(5);
@@ -246,18 +271,18 @@ const App : React.FC = ({}) => {
 
 
   let editorObjects = useState([{id:'world', selected: false}]); //not used yet
-
   let updateState = (newState:any) => { // updates state
-    let {world, capsules, diamonds, rounds, enemies, avatar, door, turrets} = newState;
-    setWorld(world);
-    setAvatar(avatar);
-    setDoor(door);
-    setTurrets(turrets);
+    let {world, capsules, diamonds, rounds, enemies, avatar, door, turrets, spikes} = newState;
+    setWorld(world)
+    setAvatar(avatar)
+    setDoor(door)
+    setTurrets(turrets)
     setEnemies(enemies)
     setCapsules(capsules)
     setDiamonds(diamonds)
     setRounds(rounds)
-    setGameObjects(newState);
+    setSpikes(spikes)
+    setGameObjects(newState)
   }
   let selectComponent = (id:string, open:boolean) => { //not used for anything yet
     editorObjects.map(
@@ -310,7 +335,8 @@ const App : React.FC = ({}) => {
     capsules,
     diamonds,
     rounds,
-    enemies
+    enemies,
+    spikes
   }
   let rename = (base:string, objects:any) =>{
     let index = 1
@@ -342,14 +368,18 @@ const App : React.FC = ({}) => {
       capsules:rename('capsule',newJSON.capsules),
       diamonds:rename('diamond', newJSON.diamonds),
       rounds:rename('round',newJSON.rounds),
-      enemies:rename('enemies',newJSON.enemies)
+      enemies:rename('enemies',newJSON.enemies),
+      spikes:rename('spike', newJSON.spikes)
     }
     updateState(reformat);
     
   }
+  console.log("App", gameObjects)
   return (
     <div className="App" >
       <div className="App-header" style = {headerStyling} >
+        <label htmlFor="level_input">Level</label>
+        <input style = {{marginLeft: '20px', height:'20px', fontSize:'7pt'}} id = "level_input" type="text" name="text" onChange={(e:any) => {level = e.target.value}}/>
         <button onClick= {() => exportToJson(JSON.parse(JSON.stringify(tester)))} style = {{marginLeft: '20px',height:'20px', fontSize:'7pt'}}>Download</button>
         <input style = {{marginLeft: '20px', height:'20px', fontSize:'7pt'}} type="file" name="file" onChange={(e:any) => {reader.readAsText(e.target.files[0])}}/>
       </div>
