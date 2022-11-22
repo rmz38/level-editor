@@ -25,7 +25,7 @@
     "react-dom": "^16.13.1",
     "react-draggable": "^4.2.0",
     "react-draggable-rotate": "0.0.21",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "react-uuid": "^1.0.2",
     "reactstrap": "^8.4.1",
     "typescript": "~3.7.2",
